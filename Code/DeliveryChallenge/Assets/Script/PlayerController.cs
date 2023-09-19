@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     private float horizontalInput;
     private float forwardInput;
     private Animator animator;
+    private GameManager manager;
 
     private Vector3 startPosition; // Store the starting position of the player
 
@@ -17,6 +18,7 @@ public class PlayerController : MonoBehaviour
     {
         animator = GetComponentInChildren<Animator>();
         startPosition = transform.position;  // Store the initial position of the player
+        manager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -28,6 +30,12 @@ public class PlayerController : MonoBehaviour
         transform.Translate(Vector3.forward * Time.deltaTime * speed * forwardInput);
         transform.Rotate(Vector3.up, turnSpeed * horizontalInput * Time.deltaTime);
         animator.SetFloat("speed", curSpeed);
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Application.LoadLevel(0);
+        }
+
+        
     }
 
     public void ResetToStartPosition()
