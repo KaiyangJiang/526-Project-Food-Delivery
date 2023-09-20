@@ -7,6 +7,8 @@ TagManager:
   - Bomb
   - Stone
   - Obstacle
+  - PizzaPlane
+  - DeliveryPlane
   layers:
   - Default
   - TransparentFX

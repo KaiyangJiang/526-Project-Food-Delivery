@@ -13,17 +13,8 @@ public class GetPizza : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        Debug.Log("Interacted with this object.");
-        manager.AddMoney(20f);
+        Debug.Log("Interacted with this object.");  
     }
-    private void OnTriggerEnter(Collider other)
-    {
-        
-        if (other.CompareTag("Player"))
-        {
-            Debug.Log("Hit");
-            
-        }
-    }
+ 
 
 }

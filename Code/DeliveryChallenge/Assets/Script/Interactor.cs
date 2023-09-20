@@ -23,7 +23,7 @@ public class Interactor : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             Debug.Log("E key pressed");
-            Ray ray = new Ray(InteractorSource.position, InteractorSource.up);
+            Ray ray = new Ray(InteractorSource.position, InteractorSource.forward);
             if (Physics.Raycast(ray, out RaycastHit hitInfo, InteractRange))
             {
                 Debug.Log("Hit an object: " + hitInfo.collider.gameObject.name);
