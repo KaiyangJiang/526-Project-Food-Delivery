@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     {
         restartButton.gameObject.SetActive(false);
         money = 0;
-        timeLeft = 60.0f;
+        timeLeft = 180.0f;
         moneyText.text = "$ " + money;
         interactText.text = "";
         gameOverText.text = "";
