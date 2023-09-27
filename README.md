@@ -6,4 +6,4 @@ Code folder: contains the project code for our game<br>
 Pages directs to the index.html inside of build folder<br>
 <br>
 Our build link<br>
-https://kaiyangjiang.github.io/526PairProject/<br>
+https://kaiyangjiang.github.io/526-Project-Food-Delivery/Builds/index.html<br>
