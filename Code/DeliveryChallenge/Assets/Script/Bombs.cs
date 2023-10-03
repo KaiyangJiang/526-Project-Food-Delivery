@@ -62,4 +62,17 @@ public class Bombs : MonoBehaviour
     {
 
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            PlayerController playerController = other.GetComponent<PlayerController>();
+            if (playerController)
+            {
+                playerController.MoneyDecrease();
+                Destroy(this.gameObject);
+            }
+        }
+    }
 }

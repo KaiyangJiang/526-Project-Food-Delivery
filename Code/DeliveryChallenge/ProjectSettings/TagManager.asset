@@ -9,6 +9,7 @@ TagManager:
   - Obstacle
   - PizzaPlane
   - DeliveryPlane
+  - Skulls
   layers:
   - Default
   - TransparentFX

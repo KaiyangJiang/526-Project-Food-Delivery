@@ -86,6 +86,16 @@ public class GameManager : MonoBehaviour
         moneyText.text = "$ " + money;
     }
 
+    public void SetMoney(double amount)
+    {
+        money = amount;
+        moneyText.text = "$ " + money;
+
+    }
+    public double GetMoney()
+    {
+        return money;
+    }
     //add pizza
     public void AddPizza(int amount)
     {
