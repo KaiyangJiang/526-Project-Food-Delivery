@@ -10,6 +10,7 @@ TagManager:
   - PizzaPlane
   - DeliveryPlane
   - Skulls
+  - Door
   layers:
   - Default
   - TransparentFX
