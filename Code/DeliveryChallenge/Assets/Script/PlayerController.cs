@@ -29,6 +29,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
+        Debug.Log("--- manager show pizza " + manager.showPizza);
+        Debug.Log("--- can get pizza " + canGetPizza);
+        Debug.Log("--- manager show text " + canGetPizza);
         if (manager.isGameActive)
         {
             horizontalInput = Input.GetAxis("Horizontal");
@@ -119,6 +122,20 @@ public class PlayerController : MonoBehaviour
         }
         manager.timeLeft -= 15.0f;
     }
+
+    public void TimerIncrease()
+    {
+        Debug.Log("Time increase");
+        Rigidbody rb = GetComponent<Rigidbody>();
+
+        if (rb)
+        {
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+
+        }
+        manager.timeLeft += 15.0f;
+    }
     public void MoneyDecrease()
     {
         Debug.Log("Money decrease");
@@ -144,31 +161,35 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Trigger entered with: " + other.gameObject.name); // This will print the name of the object the player collided with.
-        manager.showText = true;
+        Debug.Log("---Trigger entered with: " + other.gameObject.name); // This will print the name of the object the player collided with.
+        if (other.gameObject.tag == "TimeBooster")
+        {
+            TimerIncrease();
+        }
         if (other.gameObject.tag == "Bomb")
         {
             MoneyDecrease();
-            return;
+         
         }
         if (other.gameObject.tag == "Door")
         {
             ResetToRandomPosition();
-            return;
+          
         }
-        if (other.gameObject.tag == "Skulls")
+        if(other.gameObject.tag == "Skulls")
         {
             TimeDecrease();
-            return;
+           
         }
-        if (other.CompareTag("Obstacle"))
+        if(other.CompareTag("Obstacle"))
         {
-            Debug.Log("Collided with Obstacle!");
+            Debug.Log("--- Collided with Obstacle!");
             ResetToStartPosition();
         }
 
-        if (other.gameObject.tag == "PizzaPlane")
+        if(other.gameObject.tag == "PizzaPlane")
         {
+            manager.showText = true;
             if (manager.pizza == 0)
             {
                 canGetPizza = true;
@@ -182,8 +203,9 @@ public class PlayerController : MonoBehaviour
             
         }
 
-        if (other.gameObject.tag == "DeliveryPlane")
+        if(other.gameObject.tag == "DeliveryPlane")
         {
+            manager.showText = true;
             if (manager.pizza == 1)
             {
                 canDeliver = true;
@@ -197,12 +219,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    void OnTriggerExit(Collider other)
     {
-        canGetPizza = false;
-        canDeliver = false;
-        manager.showText = false;
-        
+        Debug.Log("--- exit trigger "+ other.gameObject.tag);
+        if ( other.gameObject.tag == "DeliveryPlane" || other.gameObject.tag == "PizzaPlane")
+        {
+            canGetPizza = false;
+            canDeliver = false;
+            manager.showText = false;
+
+        }
+
     }
 
 }

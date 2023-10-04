@@ -11,6 +11,7 @@ TagManager:
   - DeliveryPlane
   - Skulls
   - Door
+  - TimeBooster
   layers:
   - Default
   - TransparentFX
