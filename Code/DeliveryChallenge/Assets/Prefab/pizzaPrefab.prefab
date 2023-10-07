@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8380168689623597947}
   - component: {fileID: 8380168689623597940}
   m_Layer: 0
-  m_Name: InteractPlanePizza
+  m_Name: pizzaPrefab
   m_TagString: PizzaPlane
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

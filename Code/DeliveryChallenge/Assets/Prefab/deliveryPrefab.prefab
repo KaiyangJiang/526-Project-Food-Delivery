@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8812136670917513915}
   - component: {fileID: 6839719361694329032}
   m_Layer: 0
-  m_Name: InteractPlaneDelivery
+  m_Name: deliveryPrefab
   m_TagString: DeliveryPlane
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
