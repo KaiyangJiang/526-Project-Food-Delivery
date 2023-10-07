@@ -12,7 +12,7 @@ public class TaskInfo
     public Vector3 deliverPosition;
     public Quaternion getRotation;
     public Quaternion deliverRotation;
-    //public string destination;
+    public string destination;
 
     public TaskInfo()
     {
@@ -52,19 +52,21 @@ public class TaskData
 {
     public string[] taskTitles =
     {
-        "Pizza", "Fried Chicken"
+        "Pizza", "Fried Chicken","Fruits"
     };
     
     public string[] taskGetName =
     {
         "Pizza Store",
-        "Fried Chicken Store"
+        "Fried Chicken Store",
+        "Fruits Store",
     };
     
     public string[] taskDestination =
     {
         "Auto Service",
-        "Music Store"
+        "Music Store",
+        "Clothing Store",
     };
     Dictionary<string, int> taskTitlesIndex = new Dictionary<string, int>();
     Dictionary<string, int> taskDestinationIndex = new Dictionary<string, int>();
@@ -87,9 +89,9 @@ public class TaskData
 
     public Vector3[] taskGetPositions =
     {
-        new Vector3(0.5199966f, -3.69f, 7.28f),
-        new Vector3(-15.43f, -3.69f, -36.27f),
-        new Vector3(0.5199966f, -3.69f, 7.28f),
+        new Vector3(0.5199966f, -3.69f, 7.28f), //Pizza
+        new Vector3(-15.43f, -3.69f, -36.27f), //Fried Chicken
+        new Vector3(-79.90f, -3.79f, -94.60f), // Fruits
         new Vector3(0.5199966f, -3.69f, 7.28f),
         new Vector3(0.5199966f, -3.69f, 7.28f),
         new Vector3(0.5199966f, -3.69f, 7.28f),
@@ -101,9 +103,9 @@ public class TaskData
 
     public Quaternion[] taskGetRotations =
     {
-        Quaternion.Euler(0,0,0),
-        Quaternion.Euler(0,0,0),
-        Quaternion.Euler(0,0,0),
+        Quaternion.Euler(0,0,0),//Pizza
+        Quaternion.Euler(0,0,0),//Fried Chicken
+        Quaternion.Euler(0,45,0),//Fruits
         Quaternion.Euler(0,0,0),
         Quaternion.Euler(0,0,0),
         Quaternion.Euler(0,0,0),
@@ -115,9 +117,9 @@ public class TaskData
 
     public Quaternion[] taskDeliverRotations =
     {
-        Quaternion.Euler(0,0,0),
-        Quaternion.Euler(0,0,0),
-        Quaternion.Euler(0,0,0),
+        Quaternion.Euler(0,0,0), //Auto
+        Quaternion.Euler(0,0,0), //Music
+        Quaternion.Euler(0,45,0), //Clothing
         Quaternion.Euler(0,0,0),
         Quaternion.Euler(0,0,0),
         Quaternion.Euler(0,0,0),
@@ -133,7 +135,7 @@ public class TaskData
     {
         new Vector3(-43.13f, -3.88f, -92.776f), //Auto Service
         new Vector3(-11.97f, -3.79f, -95.98f), //Music Store
-        new Vector3(-43.13f, -3.88f, -92.776f),
+        new Vector3( 20.0f, -3.79f, 5.98f), //clothing store
         new Vector3(-43.13f, -3.88f, -92.776f),
         new Vector3(-43.13f, -3.88f, -92.776f),
         new Vector3(-43.13f, -3.88f, -92.776f),
@@ -154,20 +156,20 @@ public class TaskData
         }
     }
     
-    public TaskInfo getTaskInfo(string title)
+    public TaskInfo getTaskInfo(string title,string destination)
     {
         int index = taskTitlesIndex[title];
-        //int destinationIndex = taskDestinationIndex[destination];
+        int destinationIndex = taskDestinationIndex[destination];
         TaskInfo taskInfo = new TaskInfo();
         taskInfo.title = taskTitles[index];
         taskInfo.description = "Pick a " + title + " at the " + taskGetName[index];
         taskInfo.money = taskMoney[index];
         taskInfo.color = taskColors[index];
         taskInfo.getPosition = taskGetPositions[index];
-        taskInfo.deliverPosition = taskDeliverPositions[index];
+        taskInfo.deliverPosition = taskDeliverPositions[destinationIndex];
         taskInfo.getRotation = taskGetRotations[index];
-        taskInfo.deliverRotation = taskDeliverRotations[index];
-        //taskInfo.destination = destination;
+        taskInfo.deliverRotation = taskDeliverRotations[destinationIndex];
+        taskInfo.destination = destination;
         
         return taskInfo;
     }
