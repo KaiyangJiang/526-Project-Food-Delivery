@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
 
     public int pizza = 0;
     public bool isGameActive;
+    public HashSet<string> itemsInHand = new HashSet<string>();
     // Start is called before the first frame update
     void Start()
     {

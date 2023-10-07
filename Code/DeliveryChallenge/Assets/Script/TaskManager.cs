@@ -7,17 +7,12 @@ public class TaskManager : MonoBehaviour
     public GameTask gameTaskPrefab;  // 这是一个预制体，用于生成GameTask实例
     public float spawnInterval = 30.0f;
     public Transform interactorsTransform;
-    
-    private string[] taskTitles = {"Pizza", "Burger", "Hotdog", "Fried Rice", "Dumping", "Noodle", "Sushi", "Steak", "Salad", "Sandwich"};
-    private string[] taskDescriptions = {"Get a pizza from the pizza shop", "Get a burger from the burger shop", "Get a hotdog from the hotdog shop", "Get a fried rice from the fried rice shop", "Get a dumping from the dumping shop", "Get a noodle from the noodle shop", "Get a sushi from the sushi shop", "Get a steak from the steak shop", "Get a salad from the salad shop", "Get a sandwich from the sandwich shop"};
-    private float[] taskMoney = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100};
-    private int TASK_NUM = 10;
+    private TaskData taskData = new TaskData();
    
     
     private int MAX_TASK_NUM = 3;
     private int currentTaskNum = 0;
-    private List<GameTask> activeTasks = new List<GameTask>();
-    private HashSet<string> activeTaskTitles = new HashSet<string>();
+    private Dictionary<string, GameTask> activeTasks = new Dictionary<string, GameTask>();
 
     private void Start()
     {
@@ -31,17 +26,20 @@ public class TaskManager : MonoBehaviour
     private void CreateGameTask()
     {
         if(currentTaskNum>=MAX_TASK_NUM) return;
-        int randomTaskIndex = Random.Range(0, TASK_NUM);
-        while (activeTaskTitles.Contains(taskTitles[randomTaskIndex]))
+        int randomTaskIndex = Random.Range(0, taskData.TASK_NUM);
+        while (activeTasks.ContainsKey(taskData.taskTitles[randomTaskIndex]))
         {
-            randomTaskIndex = Random.Range(0, TASK_NUM);
+            randomTaskIndex = Random.Range(0, taskData.TASK_NUM);
         }
         
         GameTask newTask = Instantiate(gameTaskPrefab, interactorsTransform);
-        newTask.Initialize(taskMoney[randomTaskIndex], taskTitles[randomTaskIndex], taskDescriptions[randomTaskIndex]);
+        string taskTitle = taskData.taskTitles[randomTaskIndex];
         
+        TaskInfo taskInfo = taskData.getTaskInfo(taskTitle);
+        //newTask.Initialize(taskData.taskMoney[randomTaskIndex], taskData.taskTitles[randomTaskIndex], taskData.taskDescriptionsGet[randomTaskIndex], taskData.taskColors[randomTaskIndex], taskData.taskGetPositions[randomTaskIndex], taskData.taskDeliverPositions[randomTaskIndex]);
+        newTask.Initialize(taskInfo);
         currentTaskNum++;
-        activeTasks.Add(newTask);
+        activeTasks.Add(taskData.taskTitles[randomTaskIndex], newTask);
     }
 
     private IEnumerator GenerateTasks()
@@ -51,6 +49,21 @@ public class TaskManager : MonoBehaviour
             yield return new WaitForSeconds(spawnInterval);
             CreateGameTask();
         }
+    }
+
+    public void updateTask(string title)
+    {
+        GameTask task = activeTasks[title];
+        task.setContent("Deliver a " + title + " to the ");
+    }
+    
+    public float completeTask(string title)
+    {
+        GameTask task = activeTasks[title];
+        task.setContent("Completed!");
+        float money = task.getEarnedMoney();
+        Destroy(task.gameObject);
+        return money;
     }
 
 

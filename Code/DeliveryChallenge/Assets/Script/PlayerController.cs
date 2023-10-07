@@ -16,6 +16,9 @@ public class PlayerController : MonoBehaviour
     public float jumpAmount = 1000;
     private Vector3 bounceOffSet = new Vector3(-5, 0, 0);
     private Vector3 startPosition; // Store the starting position of the player
+    
+    private string currentTaskTitle = "";
+    
 
     // Start is called before the first frame update
     void Start()
@@ -48,19 +51,31 @@ public class PlayerController : MonoBehaviour
             {
                 if (canGet)
                 {
-                    if (manager.pizza == 0)
+                    if (!manager.itemsInHand.Contains(currentTaskTitle))
+                    {
+                        manager.itemsInHand.Add(currentTaskTitle);
+                        taskManager.updateTask(currentTaskTitle);
+                    }
+                    /*if (manager.pizza == 0)
                     {
                         manager.AddPizza(1);
                         manager.showPizza = false;
-                    }
+                    }*/
                 }
                 if (canDeliver)
                 {
-                    if (manager.pizza == 1)
+                    if (manager.itemsInHand.Contains(currentTaskTitle))
+                    {
+                        manager.itemsInHand.Remove(currentTaskTitle);
+                        float money = taskManager.completeTask(currentTaskTitle);
+                        manager.AddMoney(money);
+                        manager.unshowHint();
+                    }
+                    /*if (manager.pizza == 1)
                     {
                         manager.DeliverPizza(1);
                         manager.showDeliver = false;
-                    }
+                    }*/
                 }
 
             }
@@ -194,6 +209,7 @@ public class PlayerController : MonoBehaviour
             canGet = true;
             GameTask currGameTask = other.transform.parent.GetComponent<GameTask>();
             string title = currGameTask.getTitle();
+            currentTaskTitle = title;
             manager.showHint("Get", currGameTask.getTitle());
         }
         
@@ -201,6 +217,8 @@ public class PlayerController : MonoBehaviour
         {
             canDeliver = true;
             GameTask currGameTask = other.transform.parent.GetComponent<GameTask>();
+            string title = currGameTask.getTitle();
+            currentTaskTitle = title;
             manager.showHint("Deliver",currGameTask.getTitle());
         }
 
@@ -245,6 +263,7 @@ public class PlayerController : MonoBehaviour
             canDeliver = false;
             manager.showText = false;
             manager.unshowHint();
+            currentTaskTitle = "";
         }
 
     }
