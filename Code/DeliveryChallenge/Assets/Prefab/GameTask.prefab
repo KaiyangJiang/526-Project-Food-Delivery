@@ -46,4 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   getObjectPrefab: {fileID: 8380168689623597942, guid: b705324872cd041ee93dd99ab4ff8bc4, type: 3}
   deliverObjectPrefab: {fileID: 8812136670917513913, guid: 2a4c343a8685c4a0d91e708de71ef51f, type: 3}
-  taskDescriptionUIPrefab: {fileID: 1689761173646847402, guid: 1148dbac0fae644c4b74baecf7fad10c, type: 3}
+  canvasObject: {fileID: 0}
+  titlePrefab: {fileID: 4382851354092338291, guid: dd98d7f5ecb064812a224bccc09574d6, type: 3}
+  contentPrefab: {fileID: 6109091029560648895, guid: f8323abf7ee264e019447d14c0ee5c5c, type: 3}

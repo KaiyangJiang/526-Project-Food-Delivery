@@ -77,6 +77,7 @@ public class TaskManager : MonoBehaviour
         float money = task.getEarnedMoney();
         int index = task.getIndex();
         string destination = task.getDestination();
+        task.completeTask();
         
         Destroy(task.gameObject);
         for(int i = index+1;i<currentTaskNum;i++)

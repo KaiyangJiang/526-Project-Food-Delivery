@@ -13,8 +13,12 @@ public class GameTask : MonoBehaviour
     private string destination = "Music Store";
     private string title = "Pizza";
     private int index = 0;
+    private float distance = 80.0f;
     
-    public GameObject taskDescriptionUIPrefab;
+    //public GameObject taskDescriptionUIPrefab;
+    private Canvas canvas;
+    public GameObject titlePrefab;
+    public GameObject contentPrefab;
     private TextMeshProUGUI titleText;      // 标题TextMeshPro组件引用
     private TextMeshProUGUI contentText; // 描述TextMeshPro组件引用
 
@@ -32,14 +36,16 @@ public class GameTask : MonoBehaviour
         deliverObjectRenderer.material.SetColor("_Color", color);
         deliverObject.transform.localPosition = deliverPosition;
         
-        GameObject uiObj = Instantiate(taskDescriptionUIPrefab, transform);
+        /*GameObject uiObj = Instantiate(taskDescriptionUIPrefab, transform);
         Transform titleTransform = uiObj.transform.Find("Canvas/Title");
-        Transform contentTransform = uiObj.transform.Find("Canvas/Content");
+        Transform contentTransform = uiObj.transform.Find("Canvas/Content");*/
+        GameObject titleInstance = Instantiate(titlePrefab, canvas.transform);
+        GameObject contentInstance = Instantiate(contentPrefab, canvas.transform);
 
-        titleText = titleTransform.GetComponent<TextMeshProUGUI>();
+        titleText = titleInstance.GetComponent<TextMeshProUGUI>();
         titleText.color = color;
 
-        contentText = contentTransform.GetComponent<TextMeshProUGUI>();
+        contentText = contentInstance.GetComponent<TextMeshProUGUI>();
         contentText.color = color;
 
         titleText.text = title;
@@ -49,6 +55,7 @@ public class GameTask : MonoBehaviour
 
     public void Initialize(TaskInfo taskInfo, int index)
     {
+        canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
         destination = taskInfo.destination;
         earnedMoney = taskInfo.money;
         title = taskInfo.title;
@@ -66,22 +73,24 @@ public class GameTask : MonoBehaviour
         deliverObject.transform.localPosition = taskInfo.deliverPosition;
         deliverObject.transform.rotation = taskInfo.deliverRotation;
         
-        GameObject uiObj = Instantiate(taskDescriptionUIPrefab, transform);
+        /*GameObject uiObj = Instantiate(taskDescriptionUIPrefab, transform);
         Transform titleTransform = uiObj.transform.Find("Canvas/Title");
-        Transform contentTransform = uiObj.transform.Find("Canvas/Content");
+        Transform contentTransform = uiObj.transform.Find("Canvas/Content");*/
+        GameObject titleInstance = Instantiate(titlePrefab, canvas.transform);
+        GameObject contentInstance = Instantiate(contentPrefab, canvas.transform);
 
-        titleText = titleTransform.GetComponent<TextMeshProUGUI>();
+        titleText = titleInstance.GetComponent<TextMeshProUGUI>();
         titleText.color = taskInfo.color;
 
-        contentText = contentTransform.GetComponent<TextMeshProUGUI>();
+        contentText = contentInstance.GetComponent<TextMeshProUGUI>();
         contentText.color =  taskInfo.color;
 
         titleText.text = taskInfo.title;
         contentText.text = taskInfo.description;
         
-        Vector3 offset = new Vector3(0, -150*this.index, 0);
-        titleTransform.localPosition += offset;
-        contentTransform.localPosition += offset;
+        Vector3 offset = new Vector3(0, -distance*this.index, 0);
+        titleInstance.transform.localPosition += offset;
+        contentInstance.transform.localPosition += offset;
     }
     
     public float getEarnedMoney()
@@ -115,10 +124,16 @@ public class GameTask : MonoBehaviour
 
     public void updateTaskInfoDisplay()
     {
-        Vector3 offset = new Vector3(0, 150, 0);
+        Vector3 offset = new Vector3(0, distance, 0);
         titleText.transform.localPosition += offset;
         contentText.transform.localPosition += offset;
         index--;
         
+    }
+
+    public void completeTask()
+    {
+        Destroy(titleText.gameObject);
+        Destroy(contentText.gameObject);
     }
 }
