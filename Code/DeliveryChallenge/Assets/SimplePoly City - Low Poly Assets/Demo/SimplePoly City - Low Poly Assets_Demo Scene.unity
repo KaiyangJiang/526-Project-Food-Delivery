@@ -5847,6 +5847,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameTaskPrefab: {fileID: 3453545141924757244, guid: 17199c21330e149a4bc2bd762125caab, type: 3}
   spawnInterval: 30
+  interactorsTransform: {fileID: 2008140238}
 --- !u!1 &962754922 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 79ef5961b86276943ab5da38ae9f2e4b, type: 3}

@@ -6,6 +6,7 @@ public class TaskManager : MonoBehaviour
 {
     public GameTask gameTaskPrefab;  // 这是一个预制体，用于生成GameTask实例
     public float spawnInterval = 30.0f;
+    public Transform interactorsTransform;
 
     private void Start()
     {
@@ -13,12 +14,13 @@ public class TaskManager : MonoBehaviour
         CreateGameTask();
 
         // 开始周期性生成GameTask
-        StartCoroutine(GenerateTasks());
+        // StartCoroutine(GenerateTasks());
     }
 
     private void CreateGameTask()
     {
-        GameTask newTask = Instantiate(gameTaskPrefab, transform);
+        GameTask newTask = Instantiate(gameTaskPrefab, interactorsTransform);
+        Debug.Log("Task: " + " Generated");
         newTask.Initialize();
     }
 
