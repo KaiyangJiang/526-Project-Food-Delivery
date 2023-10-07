@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3453545141924757244}
   m_Layer: 0
   m_Name: GameTask
-  m_TagString: Untagged
+  m_TagString: GameTask
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,3 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   getObjectPrefab: {fileID: 8380168689623597942, guid: b705324872cd041ee93dd99ab4ff8bc4, type: 3}
   deliverObjectPrefab: {fileID: 8812136670917513913, guid: 2a4c343a8685c4a0d91e708de71ef51f, type: 3}
+  taskDescriptionUIPrefab: {fileID: 1689761173646847402, guid: 1148dbac0fae644c4b74baecf7fad10c, type: 3}

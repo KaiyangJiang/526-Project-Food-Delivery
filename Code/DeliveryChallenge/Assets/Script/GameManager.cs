@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (showText)
+        /*if (showText)
         {
             if (showPizza)
             {
@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
         else
         {
             interactText.text = "";
-        }
+        }*/
 
 
     }
@@ -109,6 +109,16 @@ public class GameManager : MonoBehaviour
         pizza -= 1;
         AddMoney(20f);
         taskContentText.text = "You did it, Now Get More Pizzas to be Delivered!";
+    }
+
+    public void showHint(string method, string title)
+    {
+        interactText.text = "Press E To " + method + " " + title + "!";
+    }
+    
+    public void unshowHint()
+    {
+        interactText.text = "";
     }
 
     //count down for timer

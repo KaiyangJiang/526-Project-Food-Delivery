@@ -7,11 +7,12 @@ TagManager:
   - Bomb
   - Stone
   - Obstacle
-  - PizzaPlane
   - DeliveryPlane
   - Skulls
   - Door
   - TimeBooster
+  - GetPlane
+  - GameTask
   layers:
   - Default
   - TransparentFX

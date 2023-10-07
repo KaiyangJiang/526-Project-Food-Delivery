@@ -10,7 +10,8 @@ public class PlayerController : MonoBehaviour
     private float forwardInput;
     private Animator animator;
     private GameManager manager;
-    private bool canGetPizza;
+    private TaskManager taskManager;
+    private bool canGet;
     private bool canDeliver;
     public float jumpAmount = 1000;
     private Vector3 bounceOffSet = new Vector3(-5, 0, 0);
@@ -22,6 +23,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         startPosition = transform.position;  // Store the initial position of the player
         manager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        taskManager = GameObject.Find("TaskManager").GetComponent<TaskManager>();
 
 
     }
@@ -30,8 +32,8 @@ public class PlayerController : MonoBehaviour
     void LateUpdate()
     {
         Debug.Log("--- manager show pizza " + manager.showPizza);
-        Debug.Log("--- can get pizza " + canGetPizza);
-        Debug.Log("--- manager show text " + canGetPizza);
+        Debug.Log("--- can get pizza " + canGet);
+        Debug.Log("--- manager show text " + canGet);
         if (manager.isGameActive)
         {
             horizontalInput = Input.GetAxis("Horizontal");
@@ -44,7 +46,7 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                if (canGetPizza)
+                if (canGet)
                 {
                     if (manager.pizza == 0)
                     {
@@ -187,7 +189,22 @@ public class PlayerController : MonoBehaviour
             ResetToStartPosition();
         }
 
-        if(other.gameObject.tag == "PizzaPlane")
+        if(other.gameObject.CompareTag("GetPlane"))
+        {
+            canGet = true;
+            GameTask currGameTask = other.transform.parent.GetComponent<GameTask>();
+            string title = currGameTask.getTitle();
+            manager.showHint("Get", currGameTask.getTitle());
+        }
+        
+        if(other.gameObject.CompareTag("DeliveryPlane"))
+        {
+            canDeliver = true;
+            GameTask currGameTask = other.transform.parent.GetComponent<GameTask>();
+            manager.showHint("Deliver",currGameTask.getTitle());
+        }
+
+        /*if(other.gameObject.CompareTag("GetPlane"))
         {
             manager.showText = true;
             if (manager.pizza == 0)
@@ -201,9 +218,9 @@ public class PlayerController : MonoBehaviour
                 manager.showPizza = false;
             }
             
-        }
+        }*/
 
-        if(other.gameObject.tag == "DeliveryPlane")
+        /*if(other.gameObject.tag == "DeliveryPlane")
         {
             manager.showText = true;
             if (manager.pizza == 1)
@@ -216,18 +233,18 @@ public class PlayerController : MonoBehaviour
                 canDeliver = false;
                 manager.showDeliver = false;
             }
-        }
+        }*/
     }
 
     void OnTriggerExit(Collider other)
     {
         Debug.Log("--- exit trigger "+ other.gameObject.tag);
-        if ( other.gameObject.tag == "DeliveryPlane" || other.gameObject.tag == "PizzaPlane")
+        if ( other.gameObject.tag == "DeliveryPlane" || other.gameObject.tag == "GetPlane")
         {
-            canGetPizza = false;
+            canGet = false;
             canDeliver = false;
             manager.showText = false;
-
+            manager.unshowHint();
         }
 
     }
