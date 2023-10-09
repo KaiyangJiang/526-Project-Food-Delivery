@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Arrowdirection : MonoBehaviour
 {
-    public Transform destination;  // Drag the destination object here in the inspector
+    private Vector3 destination;  // Drag the destination object here in the inspector
     // Start is called before the first frame update
     void Start()
     {
@@ -15,12 +15,21 @@ public class Arrowdirection : MonoBehaviour
     void Update()
     {
         // Calculate the direction from the arrow to the destination
-        Vector3 directionToDestination = (destination.position - transform.position).normalized;
+        Vector3 directionToDestination = (destination - transform.position).normalized;
+        if(Input.GetKeyUp(KeyCode.G)) {
+            Debug.Log("directionToDestination: " + directionToDestination);
+            Debug.Log("destination.position: " + destination);
+            Debug.Log("position: " + transform.position);
+        }
 
         // Adjust the y component to ensure the arrow stays flat or at a fixed angle
         directionToDestination.y = 0;
 
         // Make the arrow's forward direction point towards the destination
-        transform.forward = directionToDestination;
+        transform.right = directionToDestination;
+    }
+
+    public void UpdateDestination(Vector3 destination) {
+        this.destination = destination;
     }
 }

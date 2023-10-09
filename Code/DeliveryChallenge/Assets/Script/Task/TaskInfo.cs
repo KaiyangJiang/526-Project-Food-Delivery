@@ -173,5 +173,15 @@ public class TaskData
         
         return taskInfo;
     }
-        
+
+    public Vector3 GetPosition(string title, bool isGet) {
+        if(isGet) {
+            return taskGetPositions[taskTitlesIndex[title]];
+        }
+        return taskDeliverPositions[taskDestinationIndex[title]];
+    }
+    
+    public Color GetColor(string title) {
+        return taskColors[taskTitlesIndex[title]];
+    }
 }

@@ -5,14 +5,17 @@ using UnityEngine;
 public class TaskManager : MonoBehaviour
 {
     public GameTask gameTaskPrefab;  // 这是一个预制体，用于生成GameTask实例
+    public GameObject arrowPrefab; // prefab to create arrows
     private float spawnInterval = 8.0f;
     public Transform interactorsTransform;
+    public Transform playerTransform;
     private TaskData taskData = new TaskData();
    
     
     private int MAX_TASK_NUM = 3;
     private int currentTaskNum = 0;
     private Dictionary<string, GameTask> activeTasks = new Dictionary<string, GameTask>();
+    private Dictionary<string, GameObject> arrows = new Dictionary<string, GameObject>();
     private HashSet<string> activeDestinations = new HashSet<string>();
     private List<GameTask> activeTasksList = new List<GameTask>();
 
@@ -51,7 +54,16 @@ public class TaskManager : MonoBehaviour
         activeTasks.Add(taskTitle, newTask);
         activeDestinations.Add(taskDestination);
         activeTasksList.Add(newTask);
-        
+
+        // create an arrow pointing to the Get position
+        Vector3 bias = new Vector3(-2.50f, 2.50f, 0);
+        Vector3 arrowPosition = playerTransform.position + bias;
+        GameObject arrow = Instantiate(arrowPrefab, arrowPosition, Quaternion.identity);
+        arrow.transform.parent = playerTransform;
+        arrow.GetComponent<Renderer>().material.color = taskData.GetColor(taskTitle);
+        Arrowdirection arrowdirection = arrow.GetComponent<Arrowdirection>();
+        arrowdirection.UpdateDestination(taskData.GetPosition(taskTitle, true) + interactorsTransform.position);
+        arrows.Add(taskTitle, arrow);
     }
 
     private IEnumerator GenerateTasks()
@@ -68,6 +80,11 @@ public class TaskManager : MonoBehaviour
         GameTask task = activeTasks[title];
         //task.setContent("Deliver a " + title + " to the ");
         task.updateTask();
+
+        GameObject arrow = arrows[title];
+        Arrowdirection arrowdirection = arrow.GetComponent<Arrowdirection>();
+        string destinationString = task.getDestination();
+        arrowdirection.UpdateDestination(taskData.GetPosition(destinationString, false) + interactorsTransform.position);
     }
     
     public float completeTask(string title)
@@ -89,6 +106,9 @@ public class TaskManager : MonoBehaviour
         activeTasksList.RemoveAt(index);
         currentTaskNum--;
         
+        GameObject arrow = arrows[title];
+        arrows.Remove(title);
+        Destroy(arrow);
         return money;
     }
 
