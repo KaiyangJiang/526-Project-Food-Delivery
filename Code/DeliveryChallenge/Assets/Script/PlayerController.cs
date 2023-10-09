@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour
                         manager.showPizza = false;
                     }*/
                 }
-                if (canDeliver)
+                else if (canDeliver)
                 {
                     if (manager.itemsInHand.Contains(currentTaskTitle))
                     {
@@ -70,6 +70,7 @@ public class PlayerController : MonoBehaviour
                         float money = taskManager.completeTask(currentTaskTitle);
                         manager.AddMoney(money);
                         manager.unshowHint();
+                        canDeliver = false;
                     }
                     /*if (manager.pizza == 1)
                     {
