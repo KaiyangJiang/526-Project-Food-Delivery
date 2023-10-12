@@ -6,8 +6,12 @@ public class PlayerController : MonoBehaviour
 {
     private float speed = 10.0f;
     private float turnSpeed = 120f;
+    private float jumpVelocity = 500.0f;
     private float horizontalInput;
     private float forwardInput;
+    private float jumpInput;
+    private Rigidbody _rb;
+
     private Animator animator;
     private GameManager manager;
     private TaskManager taskManager;
@@ -18,6 +22,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 startPosition; // Store the starting position of the player
     
     private string currentTaskTitle = "";
+
+    bool isGround = true;
     
 
     // Start is called before the first frame update
@@ -27,26 +33,51 @@ public class PlayerController : MonoBehaviour
         startPosition = transform.position;  // Store the initial position of the player
         manager = GameObject.Find("GameManager").GetComponent<GameManager>();
         taskManager = GameObject.Find("TaskManager").GetComponent<TaskManager>();
+        _rb = GetComponent<Rigidbody>();
 
 
+    }
+
+    void Update()
+    {
+        horizontalInput = Input.GetAxis("Horizontal")*turnSpeed;
+        forwardInput = Input.GetAxis("Vertical")*speed;
+        if (Input.GetKeyDown(KeyCode.Space)  && isGround)
+        {
+            //jumpInput = jumpVelocity;
+            _rb.AddForce(Vector3.up * jumpVelocity, ForceMode.Impulse);
+            Debug.Log("Jump!");
+            isGround = false;
+        }
+    }
+
+    void FixedUpdate()
+    {
+        //transform.Translate(-new Vector3(1, 0, 1) * Time.deltaTime * 10f);
+        //mjumpInput = 0f;
+
+        Vector3 rotation = Vector3.up * horizontalInput;
+        Quaternion angleRot = Quaternion.Euler(rotation * Time.fixedDeltaTime);
+        _rb.MovePosition(this.transform.position + this.transform.forward * forwardInput * Time.fixedDeltaTime);
+        _rb.MoveRotation(_rb.rotation * angleRot);
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
-        Debug.Log("--- manager show pizza " + manager.showPizza);
-        Debug.Log("--- can get pizza " + canGet);
-        Debug.Log("--- manager show text " + canGet);
+        //Debug.Log("--- manager show pizza " + manager.showPizza);
+        //Debug.Log("--- can get pizza " + canGet);
+        //Debug.Log("--- manager show text " + canGet);
         if (manager.isGameActive)
         {
-            horizontalInput = Input.GetAxis("Horizontal");
-            forwardInput = Input.GetAxis("Vertical");
+            //horizontalInput = Input.GetAxis("Horizontal");
+            //forwardInput = Input.GetAxis("Vertical");
             float curSpeed = Time.deltaTime * speed * forwardInput;
-            transform.Translate(Vector3.forward * Time.deltaTime * speed * forwardInput);
-            transform.Rotate(Vector3.up, turnSpeed * horizontalInput * Time.deltaTime);
+            //transform.Translate(Vector3.forward * Time.deltaTime * speed * forwardInput);
+            //transform.Rotate(Vector3.up, turnSpeed * horizontalInput * Time.deltaTime);
             animator.SetFloat("speed", curSpeed);
 
-
+            
             if (Input.GetKeyDown(KeyCode.E))
             {
                 if (canGet)
@@ -102,15 +133,17 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Player is reseting to start positon.");
         Rigidbody rb = GetComponent<Rigidbody>();
+        transform.Translate(-new Vector3(1, 1, 1) * Time.deltaTime * 5f);
 
-        if(rb)
-        {
-            rb.velocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
+        //rb.MovePosition(-new Vector3(1,0,1) * 500f);
+        //if(rb)
+        //{
+        //    rb.velocity = Vector3.zero;
+        //    rb.angularVelocity = Vector3.zero;
 
-        }
+        //}
 
-        transform.position = startPosition;
+        //transform.position = startPosition;
 
     }
     public void ResetToRandomPosition()
@@ -221,6 +254,10 @@ public class PlayerController : MonoBehaviour
             string title = currGameTask.getTitle();
             currentTaskTitle = title;
             manager.showHint("Deliver",currGameTask.getTitle());
+        }
+        if(other.transform.name.Contains("Road"))
+        {
+            isGround = true;
         }
 
         /*if(other.gameObject.CompareTag("GetPlane"))
