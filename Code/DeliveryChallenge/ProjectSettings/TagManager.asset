@@ -13,6 +13,7 @@ TagManager:
   - TimeBooster
   - GetPlane
   - GameTask
+  - TreasureBox
   layers:
   - Default
   - TransparentFX
