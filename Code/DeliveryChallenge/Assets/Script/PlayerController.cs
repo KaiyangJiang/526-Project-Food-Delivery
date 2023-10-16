@@ -199,9 +199,9 @@ public class PlayerController : MonoBehaviour
 
         }
         double curMoney = manager.GetMoney();
-        if (curMoney >= 20)
+        if (curMoney >= 10)
         {
-            manager.SetMoney(curMoney - 20);
+            manager.SetMoney(curMoney - 10);
         }
         else
         {
@@ -210,28 +210,65 @@ public class PlayerController : MonoBehaviour
      
     }
 
-    void OnTriggerEnter(Collider other)
+    public void MoneyIncrease()
     {
-        Debug.Log("---Trigger entered with: " + other.gameObject.name); // This will print the name of the object the player collided with.
-        if (other.gameObject.tag == "TimeBooster")
+        Debug.Log("Money increase");
+        Rigidbody rb = GetComponent<Rigidbody>();
+
+        if (rb)
+        {
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+
+        }
+        double curMoney = manager.GetMoney();
+        manager.SetMoney(curMoney + 10);
+
+    }
+
+    public void openMagicBox()
+    {
+        int randomNumber = Random.Range(0, 4); // Generates a random number between 0 (inclusive) and 4 (exclusive)
+        if (randomNumber == 0)
+        {
+            TimeDecrease();
+        }
+        else if(randomNumber == 1)
         {
             TimerIncrease();
         }
-        if (other.gameObject.tag == "Bomb")
+        else if(randomNumber == 2)
         {
             MoneyDecrease();
-         
         }
+        else
+        {
+            MoneyIncrease();
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("---Trigger entered with: " + other.gameObject.name); // This will print the name of the object the player collided with.
+        if (other.gameObject.tag == "TreasureBox")
+        {
+            //TimerIncrease();
+        }
+        //if (other.gameObject.tag == "Bomb")
+        //{
+        //    MoneyDecrease();
+         
+        //}
         if (other.gameObject.tag == "Door")
         {
             ResetToRandomPosition();
           
         }
-        if(other.gameObject.tag == "Skulls")
-        {
-            TimeDecrease();
+        //if(other.gameObject.tag == "Skulls")
+        //{
+        //    TimeDecrease();
            
-        }
+        //}
         if(other.CompareTag("Obstacle"))
         {
             Debug.Log("--- Collided with Obstacle!");
