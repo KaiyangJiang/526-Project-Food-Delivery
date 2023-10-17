@@ -10,18 +10,23 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI moneyText;
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI interactText;
-    public TextMeshProUGUI taskContentText;
     public TextMeshProUGUI gameOverText;
     public TextMeshProUGUI displayMoneyText;
+    public TextMeshProUGUI statusText;
     public Button restartButton;
+    public Button startButton;
+    public GameObject guidePanel;
 
     public float timeLeft;
+    public float statusTime;
+    public bool gameStarted = false;
     public bool timerOn = false;
     public bool showText = false;
     public bool showPizza = false;
     public bool showDeliver = false;
     public bool showGameOver = false;
     public bool showMoney = false;
+    public string statusTextInput = "";
 
     public int pizza = 0;
     public bool isGameActive;
@@ -29,8 +34,11 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        statusText.text = "";
+        startButton.gameObject.SetActive(true);
         restartButton.gameObject.SetActive(false);
         money = 0;
+        statusTime = 181.0f;
         timeLeft = 180.0f;
         moneyText.text = "$ " + money;
         interactText.text = "";
@@ -38,7 +46,6 @@ public class GameManager : MonoBehaviour
         displayMoneyText.text = "";
         updateTimer(timeLeft);
         timerOn = true;
-        taskContentText.text = "Get a Pizza from a Pizza Store";
         isGameActive = true;
         showGameOver = false;
         showMoney = false;
@@ -47,15 +54,26 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (gameStarted)
+        {
+            startButton.gameObject.SetActive(false);
+        }
         if (timerOn){
             if (timeLeft > 0){
                 timeLeft -= Time.deltaTime;
                 updateTimer(timeLeft);
-            }else{ 
+            }
+            else{ 
                 handleTimeUp(); 
             }
         }
-
+        if (timeLeft>statusTime){
+            statusText.text = statusTextInput;
+        }
+        else
+        {
+            statusText.text = "";
+        }
         /*if (showText)
         {
             if (showPizza)
@@ -97,21 +115,6 @@ public class GameManager : MonoBehaviour
     {
         return money;
     }
-    //add pizza
-    public void AddPizza(int amount)
-    {
-        pizza += 1;
-        taskContentText.text = "Find Auto Service and Delivery the Pizza";
-    }
-
-    //deliver pizza
-    public void DeliverPizza(int amount)
-    {
-        pizza -= 1;
-        AddMoney(20f);
-        taskContentText.text = "You did it, Now Get More Pizzas to be Delivered!";
-    }
-
     public void showHint(string method, string title)
     {
         interactText.text = "Press E To " + method + " " + title + "!";
@@ -148,8 +151,24 @@ public class GameManager : MonoBehaviour
         restartButton.gameObject.SetActive(true);
     }
 
+    public void updateStatus(string Text,float TimeDuration,Color color)
+    {
+        statusTextInput = Text;
+        statusText.color = color;
+        statusTime = timeLeft - TimeDuration;
+        
+        
+    }
     public void RestartGame()
     {
         Application.LoadLevel(0);
+    }
+
+    public void StartGame()
+    {
+        startButton.gameObject.SetActive(false);
+        gameStarted = true;
+        guidePanel.SetActive(false);
+        timeLeft = 180f;
     }
 }

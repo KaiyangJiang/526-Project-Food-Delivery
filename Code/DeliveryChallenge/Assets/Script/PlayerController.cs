@@ -84,6 +84,7 @@ public class PlayerController : MonoBehaviour
                 {
                     if (!manager.itemsInHand.Contains(currentTaskTitle))
                     {
+                        manager.updateStatus(currentTaskTitle + " Picked up", 1.5f, Color.white);
                         manager.itemsInHand.Add(currentTaskTitle);
                         taskManager.updateTask(currentTaskTitle);
                     }
@@ -99,6 +100,7 @@ public class PlayerController : MonoBehaviour
                     {
                         manager.itemsInHand.Remove(currentTaskTitle);
                         float money = taskManager.completeTask(currentTaskTitle);
+                        manager.updateStatus(currentTaskTitle + " Delivered + "+money+"$", 1.5f, Color.yellow);
                         manager.AddMoney(money);
                         manager.unshowHint();
                         canDeliver = false;
@@ -232,18 +234,22 @@ public class PlayerController : MonoBehaviour
         if (randomNumber == 0)
         {
             TimeDecrease();
+            manager.updateStatus("Time -15s", 1,Color.green);
         }
         else if(randomNumber == 1)
         {
             TimerIncrease();
+            manager.updateStatus("Time +15s", 1, Color.green);
         }
         else if(randomNumber == 2)
         {
             MoneyDecrease();
+            manager.updateStatus("Money -10$", 1,Color.yellow);
         }
         else
         {
             MoneyIncrease();
+            manager.updateStatus("Money +10$", 1,Color.yellow);
         }
     }
 
