@@ -6918,7 +6918,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpAmount: 10
-  gameDataCollector: {fileID: 0}
+  gameDataCollector: {fileID: 2024137574}
 --- !u!54 &1205295534
 Rigidbody:
   m_ObjectHideFlags: 0
