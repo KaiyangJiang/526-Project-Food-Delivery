@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public Button restartButton;
     public Button startButton;
     public GameObject guidePanel;
+    public GameDataCollector gameDataCollector;
 
     public float timeLeft;
     public float statusTime;
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviour
     public bool showGameOver = false;
     public bool showMoney = false;
     public string statusTextInput = "";
+
 
     public int pizza = 0;
     public bool isGameActive;
@@ -103,6 +105,7 @@ public class GameManager : MonoBehaviour
     {
         money += amount;
         moneyText.text = "$ " + money;
+        
     }
 
     public void SetMoney(double amount)
@@ -149,7 +152,10 @@ public class GameManager : MonoBehaviour
         gameOverText.text = "Game Over";
         displayMoneyText.text = "You Earned: " + money.ToString() + " $";
         restartButton.gameObject.SetActive(true);
+        gameDataCollector.goldCollected = (int)money;
+        gameDataCollector.SendDataToGoogleForm();
     }
+
 
     public void updateStatus(string Text,float TimeDuration,Color color)
     {

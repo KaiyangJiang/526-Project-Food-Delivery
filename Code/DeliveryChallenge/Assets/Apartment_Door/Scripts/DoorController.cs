@@ -7,6 +7,7 @@ public class DoorController : MonoBehaviour
     public bool gotKey;                  //Has the player acquired key
     public GameObject keyGameObject;            //If player has Key,  assign it here
     public GameObject txtToDisplay;             //Display the information about how to close/open the door
+    
 
     private bool playerInZone;                  //Check if the player is in the zone
     private bool doorOpened;                    //Check if door is currently opened or not
@@ -50,6 +51,7 @@ public class DoorController : MonoBehaviour
     {
         txtToDisplay.SetActive(true);
         playerInZone = true;
+        
     }
 
     private void OnTriggerExit(Collider other)
@@ -83,6 +85,7 @@ public class DoorController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) && playerInZone)
         {
             doorOpened = !doorOpened;           //The toggle function of door to open/close
+           
 
             if (doorState == DoorState.Closed && !doorAnim.isPlaying)
             {

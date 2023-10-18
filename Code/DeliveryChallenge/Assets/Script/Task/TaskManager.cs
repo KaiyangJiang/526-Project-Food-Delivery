@@ -10,8 +10,10 @@ public class TaskManager : MonoBehaviour
     public Transform interactorsTransform;
     public Transform playerTransform;
     private TaskData taskData = new TaskData();
-   
-    
+
+    public GameDataCollector gameDataCollector;
+
+
     private int MAX_TASK_NUM = 3;
     private int currentTaskNum = 0;
     private Dictionary<string, GameTask> activeTasks = new Dictionary<string, GameTask>();
@@ -54,6 +56,8 @@ public class TaskManager : MonoBehaviour
         activeTasks.Add(taskTitle, newTask);
         activeDestinations.Add(taskDestination);
         activeTasksList.Add(newTask);
+
+        gameDataCollector.RecordTaskType(taskTitle);
 
         // create an arrow pointing to the Get position
         Vector3 bias = new Vector3(-2.50f, 2.50f, 0);
@@ -109,6 +113,9 @@ public class TaskManager : MonoBehaviour
         GameObject arrow = arrows[title];
         arrows.Remove(title);
         Destroy(arrow);
+
+        gameDataCollector.tasksCompleted++;
+
         return money;
     }
 
