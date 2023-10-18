@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+
     private float speed = 10.0f;
     private float turnSpeed = 120f;
     private float jumpVelocity = 500.0f;
@@ -11,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private float forwardInput;
     private float jumpInput;
     private Rigidbody _rb;
+    
 
     private Animator animator;
     private GameManager manager;
@@ -24,7 +26,8 @@ public class PlayerController : MonoBehaviour
     private string currentTaskTitle = "";
 
     bool isGround = true;
-    
+    public GameDataCollector gameDataCollector;
+
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +37,9 @@ public class PlayerController : MonoBehaviour
         manager = GameObject.Find("GameManager").GetComponent<GameManager>();
         taskManager = GameObject.Find("TaskManager").GetComponent<TaskManager>();
         _rb = GetComponent<Rigidbody>();
+        //gameDataCollector = FindObjectOfType<GameDataCollector>();
+
+      
 
 
     }
@@ -268,7 +274,8 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag == "Door")
         {
             ResetToRandomPosition();
-          
+            gameDataCollector.magicDoorsUsed++;
+
         }
         //if(other.gameObject.tag == "Skulls")
         //{

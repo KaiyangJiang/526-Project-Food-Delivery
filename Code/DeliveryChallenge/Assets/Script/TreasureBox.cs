@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TreasureBox : MonoBehaviour
 {
+    public GameDataCollector gameDataCollector;
     // Use this for initialization
     void Start()
     {
@@ -23,6 +24,7 @@ public class TreasureBox : MonoBehaviour
             if (playerController)
             {
                 playerController.openMagicBox();
+                gameDataCollector.treasureBoxesCollected++;
                 Destroy(this.gameObject);
             }
         }
