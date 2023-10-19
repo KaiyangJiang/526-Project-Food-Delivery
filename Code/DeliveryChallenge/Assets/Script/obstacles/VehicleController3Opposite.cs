@@ -18,7 +18,7 @@ public class VehicleController3Opposite : MonoBehaviour
 
     void CheckBoundary()
     {
-        if (transform.position.z > 120)
+        if (transform.position.z > 40)
         {
             //transform.position = startingPosition;
             transform.position = new Vector3(125, 0, 0);

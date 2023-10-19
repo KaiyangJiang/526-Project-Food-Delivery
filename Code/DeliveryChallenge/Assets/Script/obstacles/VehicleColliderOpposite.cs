@@ -18,7 +18,7 @@ public class VehicleColliderOpposite : MonoBehaviour
 
     void CheckBoundary()
     {
-        if (transform.position.x > 120)
+        if (transform.position.x > 80)
         {
             //transform.position = startingPosition;
             transform.position = new Vector3(0, 0, -3);

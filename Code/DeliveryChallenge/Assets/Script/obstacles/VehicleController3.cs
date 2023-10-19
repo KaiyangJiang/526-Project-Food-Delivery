@@ -19,7 +19,7 @@ public class VehicleController3 : MonoBehaviour
 
     void CheckBoundary()
     {
-        if (transform.position.z < 0)
+        if (transform.position.z < 20)
         {
             //transform.position = startingPosition;
             transform.position = new Vector3(120, 0, 125);
