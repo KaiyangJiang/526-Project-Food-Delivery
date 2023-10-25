@@ -8,10 +8,13 @@ public class PlayerController : MonoBehaviour
     private float speed = 10.0f;
     private float turnSpeed = 120f;
     private float jumpVelocity = 500.0f;
+    private float PushForce = 100f;
+    private bool EnemyTrigger = false;
     private float horizontalInput;
     private float forwardInput;
     private float jumpInput;
     private Rigidbody _rb;
+    private Vector3 collisionDir;
     
 
     private Animator animator;
@@ -66,6 +69,12 @@ public class PlayerController : MonoBehaviour
         Quaternion angleRot = Quaternion.Euler(rotation * Time.fixedDeltaTime);
         _rb.MovePosition(this.transform.position + this.transform.forward * forwardInput * Time.fixedDeltaTime);
         _rb.MoveRotation(_rb.rotation * angleRot);
+        if (EnemyTrigger)
+        {
+            _rb.AddForce((collisionDir + new Vector3(0f,0.5f,0f)) * PushForce + Vector3.up, ForceMode.Impulse);
+
+            EnemyTrigger = false;
+        }
     }
 
     // Update is called once per frame
@@ -308,6 +317,12 @@ public class PlayerController : MonoBehaviour
         if(other.transform.name.Contains("Road"))
         {
             isGround = true;
+        }
+
+        if(other.gameObject.name == "Enemy")
+        {
+            EnemyTrigger = true;
+            collisionDir = (this.transform.position - other.gameObject.transform.position).normalized;
         }
 
         /*if(other.gameObject.CompareTag("GetPlane"))
