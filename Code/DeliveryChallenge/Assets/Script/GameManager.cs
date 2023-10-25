@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public Button startButton;
     public GameObject guidePanel;
     public GameDataCollector gameDataCollector;
+    public TextMeshProUGUI skillHint;
 
     public float timeLeft;
     public float statusTime;
@@ -39,6 +40,7 @@ public class GameManager : MonoBehaviour
         statusText.text = "";
         startButton.gameObject.SetActive(true);
         restartButton.gameObject.SetActive(false);
+        skillHint.gameObject.SetActive(false);
         money = 0;
         statusTime = 181.0f;
         timeLeft = 180.0f;

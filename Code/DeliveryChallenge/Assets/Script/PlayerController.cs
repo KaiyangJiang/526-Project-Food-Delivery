@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -12,6 +13,7 @@ public class PlayerController : MonoBehaviour
     private bool EnemyTrigger = false;
     private float horizontalInput;
     private float forwardInput;
+    private bool triggerSkill;
     private float jumpInput;
     private Rigidbody _rb;
     private Vector3 collisionDir;
@@ -29,6 +31,7 @@ public class PlayerController : MonoBehaviour
     private string currentTaskTitle = "";
 
     bool isGround = true;
+    bool firstTime = true;
     public GameDataCollector gameDataCollector;
 
 
@@ -51,6 +54,14 @@ public class PlayerController : MonoBehaviour
     {
         horizontalInput = Input.GetAxis("Horizontal")*turnSpeed;
         forwardInput = Input.GetAxis("Vertical")*speed;
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            if (triggerSkill)
+            {
+
+                instatMove();
+            }
+        }
         if (Input.GetKeyDown(KeyCode.Space)  && isGround)
         {
             //jumpInput = jumpVelocity;
@@ -162,6 +173,20 @@ public class PlayerController : MonoBehaviour
 
         //transform.position = startPosition;
 
+    }
+    public void instatMove()
+    {
+        if (firstTime)
+        {
+            transform.Translate(Vector3.forward * Time.deltaTime * speed * 100);
+            firstTime = false;
+        }
+        else
+        {
+            transform.Translate(Vector3.forward * Time.deltaTime * speed * 500);
+        }
+        //_rb.MovePosition(this.transform.position + this.transform.forward * speed * 100 * Time.fixedDeltaTime);
+        Debug.Log("Instant move");
     }
     public void ResetToRandomPosition()
     {
@@ -355,6 +380,13 @@ public class PlayerController : MonoBehaviour
                 manager.showDeliver = false;
             }
         }*/
+    }
+
+    public void setTriggerSkill(bool canTrigger)
+    {
+        Debug.Log("set trigger skill");
+        this.triggerSkill = canTrigger;
+        manager.skillHint.gameObject.SetActive(canTrigger);
     }
 
     void OnTriggerExit(Collider other)
