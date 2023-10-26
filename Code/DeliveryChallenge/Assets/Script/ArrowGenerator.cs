@@ -17,12 +17,15 @@ public class ArrowGenerator : MonoBehaviour
     public List<int> trianglesList;
  
     Mesh mesh;
+
+    //private Transform playerTransform;
  
     void Start()
     {
         //make sure Mesh Renderer has a material
         mesh = new Mesh();
         this.GetComponent<MeshFilter>().mesh = mesh;
+        transform.localPosition = new Vector3(0,9,0);
     }
  
     void Update()

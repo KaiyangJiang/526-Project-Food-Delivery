@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     bool firstTime = true;
     public GameDataCollector gameDataCollector;
 
+    private WeaponManager weaponManager;
 
     // Start is called before the first frame update
     void Start()
@@ -45,9 +46,10 @@ public class PlayerController : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
         //gameDataCollector = FindObjectOfType<GameDataCollector>();
 
-      
-
-
+        weaponManager = GameObject.Find("WeaponManager").GetComponent<WeaponManager>();
+        weaponManager.Add("M1911");
+        weaponManager.Add("AK74");
+        weaponManager.Add("Uzi");
     }
 
     void Update()
