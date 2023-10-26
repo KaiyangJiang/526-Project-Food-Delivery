@@ -47,9 +47,12 @@
      <Compile Include="Assets\GolemiteGames\TimersMadeEasyLite\Scripts\DemoFunctionsForEvents.cs" />
      <Compile Include="Assets\Script\obstacles\VehicleController.cs" />
      <Compile Include="Assets\Script\Task\TaskInfo.cs" />
+     <Compile Include="Assets\Script\Weapon\WeaponManager.cs" />
      <Compile Include="Assets\Crates_0\Scene\Scripts\RotateCube.cs" />
+     <Compile Include="Assets\Script\Weapon\BulletController.cs" />
      <Compile Include="Assets\Crates_0\Scene\Scripts\FlickeringLightsDimer.cs" />
      <Compile Include="Assets\miniMap-TurzoStudio\Scripts\FollowCharacter.cs" />
+     <Compile Include="Assets\Script\Weapon\WeaponController.cs" />
      <Compile Include="Assets\Apartment_Door\Scripts\KeyController.cs" />
      <Compile Include="Assets\Script\obstacles\VehicleController3Opposite.cs" />
      <Compile Include="Assets\Crates_0\Scene\Scripts\FlickeringLights.cs" />
@@ -77,9 +80,6 @@
      <Compile Include="Assets\Script\EnemyController.cs" />
      <Compile Include="Assets\Script\obstacles\MagicDoor.cs" />
      <Compile Include="Assets\Script\Task\GameTask.cs" />
-     <Compile Include="Assets\Script\Weapon\WeaponController.cs" />
-     <Compile Include="Assets\Script\Weapon\WeaponManager.cs" />
-     <Compile Include="Assets\Script\Weapon\BulletController.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

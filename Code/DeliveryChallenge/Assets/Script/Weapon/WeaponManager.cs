@@ -22,6 +22,9 @@ public class WeaponManager : MonoBehaviour
         }
         
         playerTransform = GameObject.Find("Player").transform;
+        this.Add("M1911");
+        this.Add("AK74");
+        this.Add("Uzi");
     }
 
     // Update is called once per frame

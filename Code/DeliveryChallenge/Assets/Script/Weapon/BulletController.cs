@@ -18,6 +18,10 @@ public class BulletController : MonoBehaviour
     {
         transform.LookAt(target.transform);
         transform.Translate(Vector3.forward * Time.deltaTime * speed);
+        if((target.transform.position - transform.position).magnitude < 0.1f)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     public void SetTarget(GameObject _target)

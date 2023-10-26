@@ -47,9 +47,9 @@ public class PlayerController : MonoBehaviour
         //gameDataCollector = FindObjectOfType<GameDataCollector>();
 
         weaponManager = GameObject.Find("WeaponManager").GetComponent<WeaponManager>();
-        weaponManager.Add("M1911");
-        weaponManager.Add("AK74");
-        weaponManager.Add("Uzi");
+        // weaponManager.Add("M1911");
+        // weaponManager.Add("AK74");
+        // weaponManager.Add("Uzi");
     }
 
     void Update()
