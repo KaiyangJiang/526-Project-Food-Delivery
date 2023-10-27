@@ -161,12 +161,14 @@ public class GameManager : MonoBehaviour
         if(button == "left")
         {
             AddMoney(10);
-            updateStatus("Money +10$", 1, Color.yellow);
+            timeLeft -= 15.0f;
+            updateStatus("Money +10$ and time -15s", 1, Color.yellow);
         }
         if(button == "right")
         {
             timeLeft += 15.0f;
-            updateStatus("Time +15s", 1, Color.green);
+            DecreaseMoney(10);
+            updateStatus("Time +15s and Money +10$", 1, Color.green);
         }
         print("xxxxx: "+button);
         TreasureBoxPanel.SetActive(false);
