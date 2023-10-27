@@ -54,22 +54,29 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        horizontalInput = Input.GetAxis("Horizontal")*turnSpeed;
-        forwardInput = Input.GetAxis("Vertical")*speed;
-        if (Input.GetKeyDown(KeyCode.F))
+        if (manager.isGameActive)
         {
-            if (triggerSkill)
+            horizontalInput = Input.GetAxis("Horizontal") * turnSpeed;
+            forwardInput = Input.GetAxis("Vertical") * speed;
+            if (Input.GetKeyDown(KeyCode.F))
             {
+                if (triggerSkill)
+                {
 
-                instatMove();
+                    instatMove();
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.Space) && isGround)
+            {
+                //jumpInput = jumpVelocity;
+                _rb.AddForce(Vector3.up * jumpVelocity, ForceMode.Impulse);
+                Debug.Log("Jump!");
+                isGround = false;
             }
         }
-        if (Input.GetKeyDown(KeyCode.Space)  && isGround)
+        else
         {
-            //jumpInput = jumpVelocity;
-            _rb.AddForce(Vector3.up * jumpVelocity, ForceMode.Impulse);
-            Debug.Log("Jump!");
-            isGround = false;
+            //handel game not active
         }
     }
 
@@ -77,16 +84,18 @@ public class PlayerController : MonoBehaviour
     {
         //transform.Translate(-new Vector3(1, 0, 1) * Time.deltaTime * 10f);
         //mjumpInput = 0f;
-
-        Vector3 rotation = Vector3.up * horizontalInput;
-        Quaternion angleRot = Quaternion.Euler(rotation * Time.fixedDeltaTime);
-        _rb.MovePosition(this.transform.position + this.transform.forward * forwardInput * Time.fixedDeltaTime);
-        _rb.MoveRotation(_rb.rotation * angleRot);
-        if (EnemyTrigger)
+        if (manager.isGameActive)
         {
-            _rb.AddForce((collisionDir + new Vector3(0f,0.5f,0f)) * PushForce + Vector3.up, ForceMode.Impulse);
+            Vector3 rotation = Vector3.up * horizontalInput;
+            Quaternion angleRot = Quaternion.Euler(rotation * Time.fixedDeltaTime);
+            _rb.MovePosition(this.transform.position + this.transform.forward * forwardInput * Time.fixedDeltaTime);
+            _rb.MoveRotation(_rb.rotation * angleRot);
+            if (EnemyTrigger)
+            {
+                _rb.AddForce((collisionDir + new Vector3(0f, 0.5f, 0f)) * PushForce + Vector3.up, ForceMode.Impulse);
 
-            EnemyTrigger = false;
+                EnemyTrigger = false;
+            }
         }
     }
 
@@ -116,11 +125,6 @@ public class PlayerController : MonoBehaviour
                         manager.itemsInHand.Add(currentTaskTitle);
                         taskManager.updateTask(currentTaskTitle);
                     }
-                    /*if (manager.pizza == 0)
-                    {
-                        manager.AddPizza(1);
-                        manager.showPizza = false;
-                    }*/
                 }
                 else if (canDeliver)
                 {
@@ -133,11 +137,7 @@ public class PlayerController : MonoBehaviour
                         manager.unshowHint();
                         canDeliver = false;
                     }
-                    /*if (manager.pizza == 1)
-                    {
-                        manager.DeliverPizza(1);
-                        manager.showDeliver = false;
-                    }*/
+              
                 }
 
             }
@@ -151,7 +151,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-
+            
         }
         
 
@@ -272,7 +272,8 @@ public class PlayerController : MonoBehaviour
 
     public void openMagicBox()
     {
-        int randomNumber = Random.Range(0, 4); // Generates a random number between 0 (inclusive) and 4 (exclusive)
+        /*int randomNumber = Random.Range(0, 4); // Generates a random number between 0 (inclusive) and 4 (exclusive)
+        
         if (randomNumber == 0)
         {
             TimeDecrease();
@@ -292,7 +293,9 @@ public class PlayerController : MonoBehaviour
         {
             MoneyIncrease();
             manager.updateStatus("Money +10$", 1,Color.yellow);
-        }
+        }*/
+
+        manager.TreasureBoxPanel.SetActive(true);
     }
 
     void OnTriggerEnter(Collider other)

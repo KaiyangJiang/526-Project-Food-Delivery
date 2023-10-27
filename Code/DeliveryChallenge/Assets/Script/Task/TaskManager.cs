@@ -6,7 +6,7 @@ public class TaskManager : MonoBehaviour
 {
     public GameTask gameTaskPrefab;  // 这是一个预制体，用于生成GameTask实例
     public GameObject arrowPrefab; // prefab to create arrows
-    private float spawnInterval = 8.0f;
+    private float spawnInterval = 20.0f;
     public Transform interactorsTransform;
     public Transform playerTransform;
     private TaskData taskData = new TaskData();

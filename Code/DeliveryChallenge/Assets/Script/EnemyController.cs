@@ -46,12 +46,16 @@ public class EnemyController : MonoBehaviour
             locations.Add(t);
         }
     }
-
+    
     void OnTriggerEnter(Collider other)
     {
-        if(other.name == ("Player"))
+        if (other.name == ("Player"))
         {
             agent.destination = Player.position;
+            if(this.GetType().ToString().Equals("UnityEngine.CapsuleCollider")){
+                print("xxx cap colid");
+                Destroy(this.gameObject);
+            }
         } 
     }
 
