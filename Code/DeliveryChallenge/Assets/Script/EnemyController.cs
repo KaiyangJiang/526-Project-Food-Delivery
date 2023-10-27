@@ -12,6 +12,8 @@ public class EnemyController : MonoBehaviour
     private int locationIndex;
     private Transform Player;
 
+    private bool isDestroyed = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -71,5 +73,13 @@ public class EnemyController : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         agent.destination = locations[locationIndex].position;
+    }
+
+    public void Eliminate() {
+        isDestroyed = true;
+    }
+
+    public bool IsDestroyed() {
+        return isDestroyed;
     }
 }

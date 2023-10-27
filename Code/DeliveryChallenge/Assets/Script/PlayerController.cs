@@ -416,9 +416,10 @@ public class PlayerController : MonoBehaviour
         {
            
             //d=Debug.Log(Vector3.Distance(Player.position, transform.position));
-            if (Vector3.Distance(other.transform.position, transform.position) < 0.15f)
+            if (Vector3.Distance(other.transform.position, transform.position) < 0.5f && !other.GetComponent<EnemyController>().IsDestroyed())
             {
                 Destroy(other.gameObject);
+                other.GetComponent<EnemyController>().Eliminate();
                 manager.DecreaseMoney(10);
                 manager.updateStatus("Hit by enemy -10$", 1, Color.red);
             }
