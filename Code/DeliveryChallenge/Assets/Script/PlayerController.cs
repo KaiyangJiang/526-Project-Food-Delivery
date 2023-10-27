@@ -115,6 +115,7 @@ public class PlayerController : MonoBehaviour
                         manager.updateStatus(currentTaskTitle + " Picked up", 1.5f, Color.white);
                         manager.itemsInHand.Add(currentTaskTitle);
                         taskManager.updateTask(currentTaskTitle);
+                        manager.unshowHint();
                     }
                     /*if (manager.pizza == 0)
                     {
@@ -330,7 +331,7 @@ public class PlayerController : MonoBehaviour
             GameTask currGameTask = other.transform.parent.GetComponent<GameTask>();
             string title = currGameTask.getTitle();
             currentTaskTitle = title;
-            manager.showHint("Get", currGameTask.getTitle());
+            if(!manager.itemsInHand.Contains(currentTaskTitle)) manager.showHint("Get", currGameTask.getTitle());
         }
         
         if(other.gameObject.CompareTag("DeliveryPlane"))
@@ -339,7 +340,7 @@ public class PlayerController : MonoBehaviour
             GameTask currGameTask = other.transform.parent.GetComponent<GameTask>();
             string title = currGameTask.getTitle();
             currentTaskTitle = title;
-            manager.showHint("Deliver",currGameTask.getTitle());
+            if(manager.itemsInHand.Contains(currentTaskTitle)) manager.showHint("Deliver",currGameTask.getTitle());
         }
         if(other.transform.name.Contains("Road"))
         {

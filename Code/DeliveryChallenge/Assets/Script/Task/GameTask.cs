@@ -21,8 +21,10 @@ public class GameTask : MonoBehaviour
     public GameObject contentPrefab;
     private TextMeshProUGUI titleText;      // 标题TextMeshPro组件引用
     private TextMeshProUGUI contentText; // 描述TextMeshPro组件引用
+    private GameObject getObject;
+    private GameObject deliverObject;
 
-    public void Initialize(float money, string title, string description, Color color, Vector3 getPosition, Vector3 deliverPosition)
+    /*public void Initialize(float money, string title, string description, Color color, Vector3 getPosition, Vector3 deliverPosition)
     {
         earnedMoney = money;
         GameObject getObject = Instantiate(getObjectPrefab, transform);
@@ -39,7 +41,7 @@ public class GameTask : MonoBehaviour
         /*GameObject uiObj = Instantiate(taskDescriptionUIPrefab, transform);
         Transform titleTransform = uiObj.transform.Find("Canvas/Title");
         Transform contentTransform = uiObj.transform.Find("Canvas/Content");*/
-        GameObject titleInstance = Instantiate(titlePrefab, canvas.transform);
+        /*GameObject titleInstance = Instantiate(titlePrefab, canvas.transform);
         GameObject contentInstance = Instantiate(contentPrefab, canvas.transform);
 
         titleText = titleInstance.GetComponent<TextMeshProUGUI>();
@@ -51,7 +53,7 @@ public class GameTask : MonoBehaviour
         titleText.text = title;
         contentText.text = description;
         
-    }
+    }*/
 
     public void Initialize(TaskInfo taskInfo, int index)
     {
@@ -60,18 +62,19 @@ public class GameTask : MonoBehaviour
         earnedMoney = taskInfo.money;
         title = taskInfo.title;
         this.index = index;
-        GameObject getObject = Instantiate(getObjectPrefab, transform);
+        getObject = Instantiate(getObjectPrefab, transform);
         Renderer getObjectRenderer = getObject.GetComponent<Renderer>();
         getObjectRenderer.material.SetColor("_Color", taskInfo.color);
         getObject.transform.localPosition = taskInfo.getPosition;
         getObject.transform.rotation = taskInfo.getRotation;
         
         
-        GameObject deliverObject = Instantiate(deliverObjectPrefab, transform);
+        deliverObject = Instantiate(deliverObjectPrefab, transform);
         Renderer deliverObjectRenderer = deliverObject.GetComponent<Renderer>();
         deliverObjectRenderer.material.SetColor("_Color", taskInfo.color);
         deliverObject.transform.localPosition = taskInfo.deliverPosition;
         deliverObject.transform.rotation = taskInfo.deliverRotation;
+        HideAndDeactivate(deliverObject);
         
         /*GameObject uiObj = Instantiate(taskDescriptionUIPrefab, transform);
         Transform titleTransform = uiObj.transform.Find("Canvas/Title");
@@ -111,6 +114,8 @@ public class GameTask : MonoBehaviour
     public void updateTask()
     {
         contentText.text = "Deliver " + title + " to " + destination;
+        ShowAndActivate(deliverObject);
+        HideAndDeactivate(getObject);
     }
     
     public int getIndex()
@@ -136,4 +141,39 @@ public class GameTask : MonoBehaviour
         Destroy(titleText.gameObject);
         Destroy(contentText.gameObject);
     }
+    
+    public void HideAndDeactivate(GameObject obj)
+    {
+        // 禁用渲染器
+        Renderer rend = obj.GetComponent<Renderer>();
+        if (rend != null)
+        {
+            rend.enabled = false;
+        }
+
+        // 如果有子物体，对每一个子物体递归调用此函数
+        foreach (Transform child in obj.transform)
+        {
+            HideAndDeactivate(child.gameObject);
+        }
+    }
+    
+    public void ShowAndActivate(GameObject obj)
+    {
+        // 启用渲染器
+        Renderer rend = obj.GetComponent<Renderer>();
+        if (rend != null)
+        {
+            rend.enabled = true;
+        }
+        
+
+        // 如果有子物体，对每一个子物体递归调用此函数
+        foreach (Transform child in obj.transform)
+        {
+            ShowAndActivate(child.gameObject);
+        }
+    }
+
+
 }
