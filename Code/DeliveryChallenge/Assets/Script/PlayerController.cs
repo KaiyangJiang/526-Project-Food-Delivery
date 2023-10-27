@@ -418,7 +418,8 @@ public class PlayerController : MonoBehaviour
             if (Vector3.Distance(other.transform.position, transform.position) < 0.15f)
             {
                 Destroy(other.gameObject);
-                MoneyDecrease();
+                manager.DecreaseMoney(10);
+                manager.updateStatus("Hit by enemy -10$", 1, Color.red);
             }
 
         }

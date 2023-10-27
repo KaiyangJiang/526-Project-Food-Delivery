@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
 
     public float timeLeft;
     public float statusTime;
-    public double GoalMoney = 200;
+    public double GoalMoney;
     public bool gameStarted = false;
     public bool timerOn = false;
     public bool showText = false;
@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
         money = 0;
         statusTime = 181.0f;
         timeLeft = 180.0f;
+        GoalMoney = 100;
         moneyText.text = "Goal: $" + money + "/ $"+GoalMoney;
         interactText.text = "";
         gameOverText.text = "";
@@ -162,7 +163,7 @@ public class GameManager : MonoBehaviour
         {
             AddMoney(10);
             timeLeft -= 15.0f;
-            updateStatus("Money +10$ and time -15s", 1, Color.yellow);
+            updateStatus("Money +10$, time -15s", 1, Color.yellow);
         }
         if(button == "right")
         {
