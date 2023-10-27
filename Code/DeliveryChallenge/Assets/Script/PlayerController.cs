@@ -408,4 +408,20 @@ public class PlayerController : MonoBehaviour
 
     }
 
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.tag == ("Enemy"))
+        {
+           
+            //d=Debug.Log(Vector3.Distance(Player.position, transform.position));
+            if (Vector3.Distance(other.transform.position, transform.position) < 0.15f)
+            {
+                Destroy(other.gameObject);
+                MoneyDecrease();
+            }
+
+        }
+    }
+
 }

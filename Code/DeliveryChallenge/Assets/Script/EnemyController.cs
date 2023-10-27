@@ -52,10 +52,10 @@ public class EnemyController : MonoBehaviour
         if (other.name == ("Player"))
         {
             agent.destination = Player.position;
-            if(this.GetType().ToString().Equals("UnityEngine.CapsuleCollider")){
-                print("xxx cap colid");
-                Destroy(this.gameObject);
-            }
+          
+            print("xxx cap colid");
+           
+            
         } 
     }
 
@@ -64,6 +64,8 @@ public class EnemyController : MonoBehaviour
         if (other.name == ("Player"))
         {
             agent.destination = Player.position;
+          
+          
         }
     }
     private void OnTriggerExit(Collider other)
