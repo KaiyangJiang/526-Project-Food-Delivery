@@ -67,7 +67,6 @@
     <Compile Include="Assets\GolemiteGames\TimersMadeEasyLite\Scripts\DemoFunctionsForEvents.cs" />
     <Compile Include="Assets\Script\obstacles\VehicleController.cs" />
     <Compile Include="Assets\Script\Task\TaskInfo.cs" />
-    <Compile Include="Assets\videoPScript.cs" />
     <Compile Include="Assets\Script\Weapon\WeaponManager.cs" />
     <Compile Include="Assets\Crates_0\Scene\Scripts\RotateCube.cs" />
     <Compile Include="Assets\Script\Weapon\BulletController.cs" />
@@ -102,6 +101,7 @@
     <Compile Include="Assets\Script\EnemyController.cs" />
     <Compile Include="Assets\Script\obstacles\MagicDoor.cs" />
     <Compile Include="Assets\Script\Task\GameTask.cs" />
+    <Compile Include="Assets\vidsScript.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

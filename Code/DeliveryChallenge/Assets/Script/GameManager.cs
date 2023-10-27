@@ -148,7 +148,7 @@ public class GameManager : MonoBehaviour
         GameOverPanel.SetActive(true);
         showGameOver = true;
         showMoney = true;
-        gameOverText.text = "Game Over";
+        gameOverText.text = "Congraduations!";
         displayMoneyText.text = "You Earned: " + money.ToString() + " $";
         restartButton.gameObject.SetActive(true);
         gameDataCollector.goldCollected = (int)money;
