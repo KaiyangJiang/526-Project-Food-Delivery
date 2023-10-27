@@ -46,12 +46,16 @@ public class EnemyController : MonoBehaviour
             locations.Add(t);
         }
     }
-
+    
     void OnTriggerEnter(Collider other)
     {
-        if(other.name == ("Player"))
+        if (other.name == ("Player"))
         {
             agent.destination = Player.position;
+          
+            print("xxx cap colid");
+           
+            
         } 
     }
 
@@ -60,6 +64,8 @@ public class EnemyController : MonoBehaviour
         if (other.name == ("Player"))
         {
             agent.destination = Player.position;
+          
+          
         }
     }
     private void OnTriggerExit(Collider other)

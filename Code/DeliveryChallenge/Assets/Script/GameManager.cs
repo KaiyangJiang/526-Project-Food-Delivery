@@ -16,11 +16,15 @@ public class GameManager : MonoBehaviour
     public Button restartButton;
     public Button startButton;
     public GameObject guidePanel;
+    public GameObject GameOverPanel;
+    public GameObject TreasureBoxPanel;
     public GameDataCollector gameDataCollector;
     public TextMeshProUGUI skillHint;
+    
 
     public float timeLeft;
     public float statusTime;
+    public double GoalMoney;
     public bool gameStarted = false;
     public bool timerOn = false;
     public bool showText = false;
@@ -29,7 +33,6 @@ public class GameManager : MonoBehaviour
     public bool showGameOver = false;
     public bool showMoney = false;
     public string statusTextInput = "";
-
 
     public int pizza = 0;
     public bool isGameActive;
@@ -41,10 +44,13 @@ public class GameManager : MonoBehaviour
         startButton.gameObject.SetActive(true);
         restartButton.gameObject.SetActive(false);
         skillHint.gameObject.SetActive(false);
+        GameOverPanel.SetActive(false);
+        TreasureBoxPanel.SetActive(false);
         money = 0;
         statusTime = 181.0f;
         timeLeft = 180.0f;
-        moneyText.text = "$ " + money;
+        GoalMoney = 100;
+        moneyText.text = "Goal: $" + money + "/ $"+GoalMoney;
         interactText.text = "";
         gameOverText.text = "";
         displayMoneyText.text = "";
@@ -67,10 +73,15 @@ public class GameManager : MonoBehaviour
                 timeLeft -= Time.deltaTime;
                 updateTimer(timeLeft);
             }
-            else{ 
-                handleTimeUp(); 
+            else{
+                handleGameOver(); 
             }
         }
+        if (money >= GoalMoney)
+        {
+            handleGameOver();
+        }
+
         if (timeLeft>statusTime){
             statusText.text = statusTextInput;
         }
@@ -78,26 +89,6 @@ public class GameManager : MonoBehaviour
         {
             statusText.text = "";
         }
-        /*if (showText)
-        {
-            if (showPizza)
-            {
-                interactText.text = "Press E To Get Pizza!";
-            }
-            else if (showDeliver)
-            {
-                interactText.text = "Press E To Deliver Pizza!";
-            }
-            else
-            {
-                interactText.text = "";
-            }
-            
-        }
-        else
-        {
-            interactText.text = "";
-        }*/
 
 
     }
@@ -106,15 +97,21 @@ public class GameManager : MonoBehaviour
     public void AddMoney(double amount)
     {
         money += amount;
-        moneyText.text = "$ " + money;
+        moneyText.text = "Goal: $" + money + "/ $" + GoalMoney;
         
     }
 
     public void SetMoney(double amount)
     {
         money = amount;
-        moneyText.text = "$ " + money;
+        moneyText.text = "Goal: $" + money + "/ $" + GoalMoney;
 
+    }
+
+    public void DecreaseMoney(double amount)
+    {
+        money -= amount;
+        moneyText.text = "Goal: $" + money + "/ $" + GoalMoney;
     }
     public double GetMoney()
     {
@@ -143,21 +140,40 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //handle when time is up
-    void handleTimeUp()
+    //handle when time is up and game
+    void handleGameOver()
     {
         timeLeft = 0;
         timerOn = false;
         isGameActive = false;
+        GameOverPanel.SetActive(true);
         showGameOver = true;
         showMoney = true;
-        gameOverText.text = "Game Over";
+        gameOverText.text = "Congraduations!";
         displayMoneyText.text = "You Earned: " + money.ToString() + " $";
         restartButton.gameObject.SetActive(true);
         gameDataCollector.goldCollected = (int)money;
         gameDataCollector.SendDataToGoogleForm();
     }
 
+    public void treasureBoxButtonHandler(string button)
+    {
+        //handle left button
+        if(button == "left")
+        {
+            AddMoney(10);
+            timeLeft -= 15.0f;
+            updateStatus("Money +10$, time -15s", 1, Color.yellow);
+        }
+        if(button == "right")
+        {
+            timeLeft += 15.0f;
+            DecreaseMoney(10);
+            updateStatus("Time +15s and Money +10$", 1, Color.green);
+        }
+        print("xxxxx: "+button);
+        TreasureBoxPanel.SetActive(false);
+    }
 
     public void updateStatus(string Text,float TimeDuration,Color color)
     {
