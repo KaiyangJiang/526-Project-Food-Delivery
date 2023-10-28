@@ -17,7 +17,8 @@ public class PlayerController : MonoBehaviour
     private float jumpInput;
     private Rigidbody _rb;
     private Vector3 collisionDir;
-    
+    public GameObject Overviewmap;
+
 
     private Animator animator;
     private GameManager manager;
@@ -50,6 +51,7 @@ public class PlayerController : MonoBehaviour
         // weaponManager.Add("M1911");
         // weaponManager.Add("AK74");
         // weaponManager.Add("Uzi");
+        Overviewmap.SetActive(false);
     }
 
     void Update()
@@ -299,6 +301,16 @@ public class PlayerController : MonoBehaviour
         manager.TreasureBoxPanel.SetActive(true);
     }
 
+    void ShowMap()
+    {
+        Overviewmap.SetActive(true);
+    }
+
+    public void CloseMap()
+    {
+        Overviewmap.SetActive(false);
+    }
+
     void OnTriggerEnter(Collider other)
     {
         Debug.Log("---Trigger entered with: " + other.gameObject.name); // This will print the name of the object the player collided with.
@@ -309,20 +321,26 @@ public class PlayerController : MonoBehaviour
         //if (other.gameObject.tag == "Bomb")
         //{
         //    MoneyDecrease();
-         
+
         //}
+        /*
         if (other.gameObject.tag == "Door")
         {
             ResetToRandomPosition();
             gameDataCollector.magicDoorsUsed++;
 
         }
+        */
+        if (other.gameObject.tag == "Door")
+        {
+            ShowMap();
+        }
         //if(other.gameObject.tag == "Skulls")
         //{
         //    TimeDecrease();
-           
+
         //}
-        if(other.CompareTag("Obstacle"))
+        if (other.CompareTag("Obstacle"))
         {
             Debug.Log("--- Collided with Obstacle!");
             ResetToStartPosition();
