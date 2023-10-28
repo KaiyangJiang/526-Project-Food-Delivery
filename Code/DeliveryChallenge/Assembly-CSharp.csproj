@@ -73,7 +73,7 @@
     <Compile Include="Assets\Script\Weapon\BulletController.cs" />
     <Compile Include="Assets\Crates_0\Scene\Scripts\FlickeringLightsDimer.cs" />
     <Compile Include="Assets\miniMap-TurzoStudio\Scripts\FollowCharacter.cs" />
-    <Compile Include="Assets\TeleportPlayer.cs" />
+    <Compile Include="Assets\Script\TeleportPlayer.cs" />
     <Compile Include="Assets\Script\Weapon\WeaponController.cs" />
     <Compile Include="Assets\Apartment_Door\Scripts\KeyController.cs" />
     <Compile Include="Assets\Script\obstacles\VehicleController3Opposite.cs" />
