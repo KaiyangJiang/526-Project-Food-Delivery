@@ -27,6 +27,7 @@ public class Arrowdirection : MonoBehaviour
 
         // Make the arrow's forward direction point towards the destination
         transform.right = directionToDestination;
+        //transform.Rotate(90, 0, 0);
     }
 
     public void UpdateDestination(Vector3 destination) {

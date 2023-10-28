@@ -59,7 +59,7 @@ public class WeaponController : MonoBehaviour
             {
                 GameObject bullet = GameObject.Instantiate(bulletPrefab, transform.position, Quaternion.identity);
                 //.bullet.transform.position += new Vector3(0, 3f, 0);
-                bullet.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+                bullet.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
                 bullet.GetComponent<BulletController>().SetTarget(enemyToShoot);
                 shootTimer = shootRate;
             }

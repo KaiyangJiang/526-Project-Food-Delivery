@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class EnemyController : MonoBehaviour
 {
 
+    public int hp = 100;
     public Transform patrolRoute;
     public List<Transform> locations;
     private UnityEngine.AI.NavMeshAgent agent;
@@ -75,11 +76,25 @@ public class EnemyController : MonoBehaviour
         agent.destination = locations[locationIndex].position;
     }
 
-    public void Eliminate() {
-        isDestroyed = true;
+    public void Damage(int dmg)
+    {
+        hp -= dmg;
+        Debug.Log("hp: " + hp);
+        if(hp <= 0)
+        {
+            hp = 0;
+            Eliminate();
+        }
     }
 
-    public bool IsDestroyed() {
+    public void Eliminate() 
+    {
+        isDestroyed = true;
+        Destroy(this.gameObject);
+    }
+
+    public bool IsDestroyed() 
+    {
         return isDestroyed;
     }
 }

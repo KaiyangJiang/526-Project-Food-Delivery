@@ -265,7 +265,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcfe5ee4ba3549f4fa08d96620f09c74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 0}
+  bulletPrefab: {fileID: 6763135677292984773, guid: e587c8f5c4c3eea4c962e30353f86131, type: 3}
+  sphereRadius: 7
+  shootRate: 0.4
 --- !u!1 &1927369336514790
 GameObject:
   m_ObjectHideFlags: 0

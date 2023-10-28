@@ -5,8 +5,10 @@ using UnityEngine;
 public class BulletController : MonoBehaviour
 {
     private GameObject target;
+    private bool isDestroyed = false;
 
     public float speed = 20.0f;
+    public int damage = 10;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,8 +20,15 @@ public class BulletController : MonoBehaviour
     {
         transform.LookAt(target.transform);
         transform.Translate(Vector3.forward * Time.deltaTime * speed);
-        if((target.transform.position - transform.position).magnitude < 0.1f)
+        if((target.transform.position - transform.position).magnitude < 0.1f && !isDestroyed)
         {
+            target.GetComponent<EnemyController>().Damage(damage);
+            isDestroyed = true;
+            Destroy(this.gameObject);
+        }
+        if(target==null || target.GetComponent<EnemyController>().IsDestroyed())
+        {
+            isDestroyed = true;
             Destroy(this.gameObject);
         }
     }
