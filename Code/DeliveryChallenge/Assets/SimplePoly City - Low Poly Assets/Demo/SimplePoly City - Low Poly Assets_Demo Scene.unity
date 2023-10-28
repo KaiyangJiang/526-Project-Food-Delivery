@@ -982,6 +982,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47453fefbb150bc468d68b243dc403f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hp: 100
   patrolRoute: {fileID: 1817953278}
   locations: []
 --- !u!195 &136677407
@@ -1650,7 +1651,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -2857,6 +2858,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47453fefbb150bc468d68b243dc403f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hp: 100
   patrolRoute: {fileID: 251915120}
   locations: []
 --- !u!195 &425055994
@@ -3405,6 +3407,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47453fefbb150bc468d68b243dc403f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hp: 100
   patrolRoute: {fileID: 263894353}
   locations: []
 --- !u!135 &493558872
@@ -14537,7 +14540,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -15434,6 +15437,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47453fefbb150bc468d68b243dc403f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hp: 100
   patrolRoute: {fileID: 1549484240}
   locations: []
 --- !u!195 &1764027927
