@@ -20,6 +20,7 @@ public class TaskManager : MonoBehaviour
     private Dictionary<string, GameObject> arrows = new Dictionary<string, GameObject>();
     private HashSet<string> activeDestinations = new HashSet<string>();
     private List<GameTask> activeTasksList = new List<GameTask>();
+    private string clickedTask = "";
 
     private void Start()
     {
@@ -44,7 +45,6 @@ public class TaskManager : MonoBehaviour
             randomDestinationIndex = Random.Range(0, taskData.TASK_NUM);
         }
         
-        
         GameTask newTask = Instantiate(gameTaskPrefab, interactorsTransform);
         string taskTitle = taskData.taskTitles[randomTaskIndex];
         string taskDestination = taskData.taskDestination[randomDestinationIndex];
@@ -65,9 +65,15 @@ public class TaskManager : MonoBehaviour
         GameObject arrow = Instantiate(arrowPrefab, arrowPosition, Quaternion.identity);
         arrow.transform.parent = playerTransform;
         arrow.GetComponent<Renderer>().material.color = taskData.GetColor(taskTitle);
+        arrow.GetComponent<Renderer>().enabled = false;
         Arrowdirection arrowdirection = arrow.GetComponent<Arrowdirection>();
         arrowdirection.UpdateDestination(taskData.GetPosition(taskTitle, true) + interactorsTransform.position);
         arrows.Add(taskTitle, arrow);
+
+        if(clickedTask == "")
+        {
+            SetClickedTask(taskTitle);
+        }
     }
 
     private IEnumerator GenerateTasks()
@@ -119,6 +125,14 @@ public class TaskManager : MonoBehaviour
         return money;
     }
 
-
+    public void SetClickedTask(string taskTitle)
+    {
+        if(clickedTask != "")
+        {
+            arrows[clickedTask].GetComponent<Renderer>().enabled = false;
+        }
+        clickedTask = taskTitle;
+        arrows[taskTitle].GetComponent<Renderer>().enabled = true;
+    }
 
 }

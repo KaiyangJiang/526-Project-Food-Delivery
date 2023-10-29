@@ -18,16 +18,16 @@ public class BulletController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(target==null || target.GetComponent<EnemyController>().IsDestroyed())
+        {
+            isDestroyed = true;
+            Destroy(this.gameObject);
+        }
         transform.LookAt(target.transform);
         transform.Translate(Vector3.forward * Time.deltaTime * speed);
         if((target.transform.position - transform.position).magnitude < 0.1f && !isDestroyed)
         {
             target.GetComponent<EnemyController>().Damage(damage);
-            isDestroyed = true;
-            Destroy(this.gameObject);
-        }
-        if(target==null || target.GetComponent<EnemyController>().IsDestroyed())
-        {
             isDestroyed = true;
             Destroy(this.gameObject);
         }

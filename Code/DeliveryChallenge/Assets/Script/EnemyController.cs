@@ -79,7 +79,7 @@ public class EnemyController : MonoBehaviour
     public void Damage(int dmg)
     {
         hp -= dmg;
-        Debug.Log("hp: " + hp);
+        //Debug.Log("hp: " + hp);
         if(hp <= 0)
         {
             hp = 0;

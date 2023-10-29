@@ -35,15 +35,20 @@ public class WeaponController : MonoBehaviour
             Debug.Log("shooting: here");
             Collider[] colliders = Physics.OverlapSphere(transform.parent.position, sphereRadius);
             Debug.Log("shooting: colliders size " + colliders.Length);
+            GameObject tmpObj = null;
             foreach (Collider collider in colliders) {
-                if(collider.tag == "Enemy") 
+                if(collider.tag == "Enemy" && collider.gameObject == enemyToShoot) 
                 {
-                    Debug.Log("shooting: " + collider.gameObject.name);
-                    enemyToShoot = collider.gameObject;
+                    //Debug.Log("shooting: " + collider.gameObject.name);
+                    tmpObj = collider.gameObject;
                     break;
                 }
-                enemyToShoot = null;
+                if(collider.tag == "Enemy")
+                {
+                    tmpObj = collider.gameObject;
+                }
             }
+            enemyToShoot = tmpObj;
         }
 
         if(enemyToShoot != null)

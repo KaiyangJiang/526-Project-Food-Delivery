@@ -266,7 +266,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 6763135677292984773, guid: e587c8f5c4c3eea4c962e30353f86131, type: 3}
-  sphereRadius: 7
+  sphereRadius: 10
   shootRate: 0.4
 --- !u!1 &1927369336514790
 GameObject:
