@@ -20,8 +20,8 @@ public class GameManager : MonoBehaviour
     public GameObject TreasureBoxPanel;
     public GameDataCollector gameDataCollector;
     public TextMeshProUGUI skillHint;
-    
-
+    public Image fruits;
+    Dictionary<string, Image> foods = new Dictionary<string, Image>();
     public float timeLeft;
     public float statusTime;
     public double GoalMoney;

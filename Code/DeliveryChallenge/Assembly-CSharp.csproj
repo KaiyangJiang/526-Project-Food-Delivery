@@ -104,6 +104,7 @@
     <Compile Include="Assets/Script/obstacles/MagicDoor.cs" />
     <Compile Include="Assets/Script/Task/GameTask.cs" />
     <Compile Include="Assets/vidsScript.cs" />
+    <Compile Include="Assets/Script/Task/TextHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />
