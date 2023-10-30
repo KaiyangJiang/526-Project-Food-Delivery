@@ -188,7 +188,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            transform.Translate(Vector3.forward * Time.deltaTime * speed * 500);
+            transform.Translate(Vector3.forward * Time.deltaTime * speed * 300);
         }
         //_rb.MovePosition(this.transform.position + this.transform.forward * speed * 100 * Time.fixedDeltaTime);
         Debug.Log("Instant move");

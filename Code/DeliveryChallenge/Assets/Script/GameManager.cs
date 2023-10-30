@@ -20,7 +20,15 @@ public class GameManager : MonoBehaviour
     public GameObject TreasureBoxPanel;
     public GameDataCollector gameDataCollector;
     public TextMeshProUGUI skillHint;
+    public GameObject bagPanel;
+    public GameObject skillRoll;
     public Image fruits;
+    public Image chicken;
+    public Image sushi;
+    public Image hamburger;
+    public Image fries;
+    public Image popcorn;
+    public Image pizzas;
     Dictionary<string, Image> foods = new Dictionary<string, Image>();
     public float timeLeft;
     public float statusTime;
@@ -45,7 +53,10 @@ public class GameManager : MonoBehaviour
         restartButton.gameObject.SetActive(false);
         skillHint.gameObject.SetActive(false);
         GameOverPanel.SetActive(false);
+        bagPanel.SetActive(false);
+        skillRoll.SetActive(false);
         TreasureBoxPanel.SetActive(false);
+        initializeBagDic();
         money = 0;
         statusTime = 181.0f;
         timeLeft = 180.0f;
@@ -139,7 +150,15 @@ public class GameManager : MonoBehaviour
             timerText.color = Color.red;
         }
     }
-
+    void initializeBagDic() {
+        foods.Add("Pizza",pizzas);
+        foods.Add("Fried Chickens", chicken);
+        foods.Add("Fruits", fruits);
+        foods.Add("Hamburger", hamburger);
+        foods.Add("Popcorn", popcorn);
+        foods.Add("French Fries", fries);
+        foods.Add("Sushi", sushi);
+    }
     //handle when time is up and game
     void handleGameOver()
     {
@@ -191,8 +210,11 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         startButton.gameObject.SetActive(false);
+        bagPanel.SetActive(true);
+        skillRoll.SetActive(true);
         gameStarted = true;
         guidePanel.SetActive(false);
+
         timeLeft = 180f;
     }
 }
