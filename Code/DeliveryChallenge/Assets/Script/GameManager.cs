@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     public GameDataCollector gameDataCollector;
     public TextMeshProUGUI skillHint;
     public GameObject bagPanel;
+    public GameObject bagGrid;
     public GameObject skillRoll;
     public Image fruits;
     public Image chicken;
@@ -29,7 +30,8 @@ public class GameManager : MonoBehaviour
     public Image fries;
     public Image popcorn;
     public Image pizzas;
-    Dictionary<string, Image> foods = new Dictionary<string, Image>();
+    Dictionary<string, Image> foodsImages = new Dictionary<string, Image>();
+    Dictionary<string, int> foodsImageIndex = new Dictionary<string, int>();
     public float timeLeft;
     public float statusTime;
     public double GoalMoney;
@@ -151,14 +153,34 @@ public class GameManager : MonoBehaviour
         }
     }
     void initializeBagDic() {
-        foods.Add("Pizza",pizzas);
-        foods.Add("Fried Chickens", chicken);
-        foods.Add("Fruits", fruits);
-        foods.Add("Hamburger", hamburger);
-        foods.Add("Popcorn", popcorn);
-        foods.Add("French Fries", fries);
-        foods.Add("Sushi", sushi);
+        foodsImages.Add("Pizza",pizzas);
+        foodsImages.Add("Fried Chicken", chicken);
+        foodsImages.Add("Fruits", fruits);
+        foodsImages.Add("Hamburger", hamburger);
+        foodsImages.Add("Popcorn", popcorn);
+        foodsImages.Add("French Fries", fries);
+        foodsImages.Add("Sushi", sushi);
+        //Instantiate(sushi, bagGrid);
     }
+
+    public void addToBag(string title)
+    {
+        Image newImageInstance = Instantiate(foodsImages[title], bagGrid.transform);
+        newImageInstance.gameObject.name = title;
+    }
+
+    public void removeFromBag(string title)
+    {
+        foreach (Transform child in bagGrid.transform)
+        {
+            if (child.name == title)
+            {
+                Destroy(child.gameObject);
+                break; 
+            }
+        }
+    }
+    
     //handle when time is up and game
     void handleGameOver()
     {
@@ -199,7 +221,6 @@ public class GameManager : MonoBehaviour
         statusTextInput = Text;
         statusText.color = color;
         statusTime = timeLeft - TimeDuration;
-        
         
     }
     public void RestartGame()

@@ -125,6 +125,7 @@ public class PlayerController : MonoBehaviour
                     {
                         manager.updateStatus(currentTaskTitle + " Picked up", 1.5f, Color.white);
                         manager.itemsInHand.Add(currentTaskTitle);
+                        manager.addToBag(currentTaskTitle);
                         taskManager.updateTask(currentTaskTitle);
                         manager.unshowHint();
                     }
@@ -134,6 +135,7 @@ public class PlayerController : MonoBehaviour
                     if (manager.itemsInHand.Contains(currentTaskTitle))
                     {
                         manager.itemsInHand.Remove(currentTaskTitle);
+                        manager.removeFromBag(currentTaskTitle);
                         float money = taskManager.completeTask(currentTaskTitle);
                         manager.updateStatus(currentTaskTitle + " Delivered + "+money+"$", 1.5f, Color.yellow);
                         manager.AddMoney(money);
