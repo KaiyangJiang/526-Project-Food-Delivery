@@ -22,12 +22,19 @@ public class TaskManager : MonoBehaviour
     private List<GameTask> activeTasksList = new List<GameTask>();
     private string clickedTask = "";
 
-    private void Start()
+    /*private void Start()
     {
         // 创建初始的GameTask
         CreateGameTask();
 
         // 开始周期性生成GameTask
+        StartCoroutine(GenerateTasks());
+    }*/
+
+    public void StartTasks()
+    {
+        CreateGameTask();
+        
         StartCoroutine(GenerateTasks());
     }
 
