@@ -50,6 +50,7 @@
      <Compile Include="Assets/miniMap-TurzoStudio/Scripts/miniCameraScript.cs" />
      <Compile Include="Assets/Crates_0/Scene/Scripts/CameraZoom.cs" />
      <Compile Include="Assets/GolemiteGames/TimersMadeEasyLite/Scripts/DemoFunctionsForEvents.cs" />
+     <Compile Include="Assets/MapToggle.cs" />
      <Compile Include="Assets/Script/obstacles/VehicleController.cs" />
      <Compile Include="Assets/Script/Task/TaskInfo.cs" />
      <Compile Include="Assets/Script/Weapon/WeaponManager.cs" />
@@ -57,12 +58,14 @@
      <Compile Include="Assets/Script/Weapon/BulletController.cs" />
      <Compile Include="Assets/Crates_0/Scene/Scripts/FlickeringLightsDimer.cs" />
      <Compile Include="Assets/miniMap-TurzoStudio/Scripts/FollowCharacter.cs" />
+     <Compile Include="Assets/Script/TeleportPlayer.cs" />
      <Compile Include="Assets/Script/Weapon/WeaponController.cs" />
      <Compile Include="Assets/Apartment_Door/Scripts/KeyController.cs" />
      <Compile Include="Assets/Script/obstacles/VehicleController3Opposite.cs" />
      <Compile Include="Assets/Crates_0/Scene/Scripts/FlickeringLights.cs" />
      <Compile Include="Assets/Script/Task/Interactor.cs" />
      <Compile Include="Assets/Script/obstacles/VehicleController3.cs" />
+     <Compile Include="Assets/Script/Task/TextHandler.cs" />
      <Compile Include="Assets/Script/PlayerController.cs" />
      <Compile Include="Assets/Script/obstacles/VehicleController2.cs" />
      <Compile Include="Assets/Script/Boost/TimeBooster.cs" />
@@ -87,9 +90,6 @@
      <Compile Include="Assets/Script/obstacles/MagicDoor.cs" />
      <Compile Include="Assets/Script/Task/GameTask.cs" />
      <Compile Include="Assets/vidsScript.cs" />
-     <Compile Include="Assets/MapToggle.cs" />
-     <Compile Include="Assets/Script/Task/TextHandler.cs" />
-     <Compile Include="Assets/Script/TeleportPlayer.cs" />
      <Folder Include="Assets" />
      <Folder Include="Assets/miniMap-TurzoStudio/Scripts" />
      <Folder Include="Assets/Meshes" />
@@ -202,6 +202,7 @@
      <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile SSD.shader" />
      <Folder Include="Assets/UI Toolkit" />
      <None Include="Assets/TextMesh Pro/Resources/LineBreaking Leading Characters.txt" />
+     <Folder Include="Assets/Prefab/New Folder" />
      <Folder Include="Assets/Course Library/Vehicles" />
      <Folder Include="Assets/SimplePoly City - Low Poly Assets/Prefab/Props" />
      <None Include="Assets/TextMesh Pro/Shaders/TMPro_Properties.cginc" />

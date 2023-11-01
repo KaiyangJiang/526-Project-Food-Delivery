@@ -52,7 +52,7 @@ public class TaskData
 {
     public string[] taskTitles =
     {
-        "Pizza", "Fried Chicken","Fruits","French Fires","Sushi","Hamburger","Popcorn"
+        "Pizza", "Fried Chicken","Fruits","French Fries","Sushi","Hamburger","Popcorn"
     };
     
     public string[] taskGetName =
