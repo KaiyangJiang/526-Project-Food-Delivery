@@ -22,9 +22,9 @@ public class WeaponManager : MonoBehaviour
         }
         
         playerTransform = GameObject.Find("Player").transform;
-        this.Add("M1911");
-        this.Add("AK74");
-        this.Add("Uzi");
+        //this.Add("M1911");
+        //this.Add("AK74");
+        //this.Add("Uzi");
     }
 
     // Update is called once per frame
@@ -45,15 +45,13 @@ public class WeaponManager : MonoBehaviour
         return true;
     }
 
-    public bool Remove(string weaponName) {
+    public void Remove(string weaponName) {
         foreach (string name in weaponList)
         {
             if(name == weaponName)
             {
-
             }
         }
-        return true;
     }
 
     private void CreateWeapon(string weaponName, int index) 

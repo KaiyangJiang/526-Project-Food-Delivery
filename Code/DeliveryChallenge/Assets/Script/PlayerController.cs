@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
     {
         //transform.Translate(-new Vector3(1, 0, 1) * Time.deltaTime * 10f);
         //mjumpInput = 0f;
-        if (manager.isGameActive)
+        if (manager.isGameActive && manager.inTresureBox==false)
         {
             Vector3 rotation = Vector3.up * horizontalInput;
             Quaternion angleRot = Quaternion.Euler(rotation * Time.fixedDeltaTime);
@@ -147,7 +147,19 @@ public class PlayerController : MonoBehaviour
 
             }
 
-            if (transform.position.y <= -1)
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                if (manager.miniMap.activeSelf)
+                {
+                    manager.miniMap.SetActive(false);
+                }
+                else
+                {
+                    manager.miniMap.SetActive(true);
+                }
+            }
+
+                if (transform.position.y <= -1)
             {
                 ResetToStartPosition();
                 TimeDecrease();
@@ -301,6 +313,8 @@ public class PlayerController : MonoBehaviour
         }*/
 
         manager.TreasureBoxPanel.SetActive(true);
+        manager.timerOn = false;
+        manager.inTresureBox = true;
     }
 
     void ShowMap()
@@ -320,11 +334,6 @@ public class PlayerController : MonoBehaviour
         {
             //TimerIncrease();
         }
-        //if (other.gameObject.tag == "Bomb")
-        //{
-        //    MoneyDecrease();
-
-        //}
         /*
         if (other.gameObject.tag == "Door")
         {
@@ -375,37 +384,6 @@ public class PlayerController : MonoBehaviour
             EnemyTrigger = true;
             collisionDir = (this.transform.position - other.gameObject.transform.position).normalized;
         }
-
-        /*if(other.gameObject.CompareTag("GetPlane"))
-        {
-            manager.showText = true;
-            if (manager.pizza == 0)
-            {
-                canGetPizza = true;
-                manager.showPizza = true;
-            }
-            else
-            {
-                canGetPizza = false;
-                manager.showPizza = false;
-            }
-            
-        }*/
-
-        /*if(other.gameObject.tag == "DeliveryPlane")
-        {
-            manager.showText = true;
-            if (manager.pizza == 1)
-            {
-                canDeliver = true;
-                manager.showDeliver = true;
-            }
-            else
-            {
-                canDeliver = false;
-                manager.showDeliver = false;
-            }
-        }*/
     }
 
     public void setTriggerSkill(bool canTrigger)
