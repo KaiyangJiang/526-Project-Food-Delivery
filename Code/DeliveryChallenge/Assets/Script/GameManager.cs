@@ -52,12 +52,14 @@ public class GameManager : MonoBehaviour
     public int pizza = 0;
     public bool isGameActive;
     public bool inTresureBox = false;
+    public bool inTutorial = false;
     public HashSet<string> itemsInHand = new HashSet<string>();
     public List<string> treasureBoxItems = new List<string>() { "+10$\n-15s", "+15s \n-10$", "+Mechine Gun\n-10$", "+Hand Gun\n-10$", "+UZI\n-10$"};
     public List<int> treasureBoxIndexes = new List<int>() {0,1};
     // Start is called before the first frame update
     void Start()
     {
+        inTutorial = true;
         weaponManager = GameObject.Find("WeaponManager").GetComponent<WeaponManager>();
         statusText.text = "";
         startButton.gameObject.SetActive(true);
