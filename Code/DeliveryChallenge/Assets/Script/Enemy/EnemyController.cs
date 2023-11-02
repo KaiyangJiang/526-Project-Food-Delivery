@@ -2,18 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
 {
 
-    public int hp = 100;
+    public float hp = 100f;
     public Transform patrolRoute;
     public List<Transform> locations;
     private UnityEngine.AI.NavMeshAgent agent;
     private int locationIndex;
     private Transform Player;
+    private GameManager manager;
+    private float bonus = 15;
 
     private bool isDestroyed = false;
+
+    public Image imageobj;
+
+    private void OnEnable()
+    {
+        hp = 100;
+        imageobj.fillAmount = hp / 100;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +32,7 @@ public class EnemyController : MonoBehaviour
         InitializePatrolRoute();
         agent = this.GetComponent<UnityEngine.AI.NavMeshAgent>();
         Player = GameObject.Find("Player").transform;
+        manager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -79,6 +91,7 @@ public class EnemyController : MonoBehaviour
     public void Damage(int dmg)
     {
         hp -= dmg;
+        imageobj.fillAmount = hp / 100;
         //Debug.Log("hp: " + hp);
         if(hp <= 0)
         {
@@ -89,8 +102,12 @@ public class EnemyController : MonoBehaviour
 
     public void Eliminate() 
     {
+        EnemyManager.Instance.initEnemy2(gameObject);
         isDestroyed = true;
-        Destroy(this.gameObject);
+        gameObject.SetActive(false);
+        manager.AddMoney(bonus);
+        manager.updateStatus("Killing enemy bonus +15$", 1, Color.red);
+        //Destroy(this.gameObject);
     }
 
     public bool IsDestroyed() 
