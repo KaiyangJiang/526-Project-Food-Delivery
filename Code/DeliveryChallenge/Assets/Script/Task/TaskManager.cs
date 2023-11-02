@@ -21,6 +21,7 @@ public class TaskManager : MonoBehaviour
     public Sprite fries;
     public Sprite popcorn;
     public Sprite pizzas;
+    public bool inTutorial;
     Dictionary<string, Sprite> foodsImagesSprites = new Dictionary<string, Sprite>();
     
 
@@ -48,8 +49,13 @@ public class TaskManager : MonoBehaviour
 
     public void StartTasks()
     {
+        if (inTutorial)
+        {
+            CreateGameTaskInTuturial(0);
+            CreateGameTaskInTuturial(1);
+            return;
+        }
         CreateGameTask();
-        
         StartCoroutine(GenerateTasks());
     }
 
@@ -101,6 +107,66 @@ public class TaskManager : MonoBehaviour
         }
         
     }
+    
+    private void CreateGameTaskInTuturial(int index)
+    {
+        int randomTaskIndex = index;
+        int randomDestinationIndex = index;
+        
+        GameTask newTask = Instantiate(gameTaskPrefab, interactorsTransform);
+        string taskTitle = taskData.taskTitles[randomTaskIndex];
+        string taskDestination = taskData.taskDestination[randomDestinationIndex];
+
+        TaskInfo taskInfo = taskData.getTaskInfo(taskTitle, taskDestination);
+        if (index == 0)
+        {
+            taskInfo.deliverPosition = new Vector3(-22.31f, -3.76f, 0.0f);
+            taskInfo.deliverRotation = Quaternion.Euler(0, 90, 0);
+        }
+
+        if (index == 1)
+        {
+            taskInfo.getPosition = new Vector3(-21.81f, -3.76f, -18.2f);
+            taskInfo.getRotation = Quaternion.Euler(0, 90, 0);
+            taskInfo.deliverPosition = new Vector3(-7.07f, -3.99f, -21.46f);
+            taskInfo.deliverRotation = Quaternion.Euler(0, 45, 0);
+        }
+        //newTask.Initialize(taskData.taskMoney[randomTaskIndex], taskData.taskTitles[randomTaskIndex], taskData.taskDescriptionsGet[randomTaskIndex], taskData.taskColors[randomTaskIndex], taskData.taskGetPositions[randomTaskIndex], taskData.taskDeliverPositions[randomTaskIndex]);
+        newTask.Initialize(taskInfo,currentTaskNum);
+        currentTaskNum++;
+        activeTasks.Add(taskTitle, newTask);
+        activeDestinations.Add(taskDestination);
+        activeTasksList.Add(newTask);
+        addToTaskPanel(taskTitle, taskInfo.color);
+        
+        
+
+        gameDataCollector.RecordTaskType(taskTitle);
+
+        // create an arrow pointing to the Get position
+        Vector3 bias = new Vector3(-2.50f, 2.50f, 0);
+        Vector3 arrowPosition = playerTransform.position + bias;
+        GameObject arrow = Instantiate(arrowPrefab, arrowPosition, Quaternion.identity);
+        arrow.transform.parent = playerTransform;
+        arrow.GetComponent<Renderer>().material.color = taskData.GetColor(taskTitle);
+        arrow.GetComponent<Renderer>().enabled = false;
+        Arrowdirection arrowdirection = arrow.GetComponent<Arrowdirection>();
+        if (index == 0)
+        {
+            arrowdirection.UpdateDestination(taskData.GetPosition(taskTitle, true) + interactorsTransform.position);
+        }
+        else
+        {
+            arrowdirection.UpdateDestination(new Vector3(-21.81f, -3.76f, -18.2f) + interactorsTransform.position);
+        }
+        arrows.Add(taskTitle, arrow);
+
+        if(clickedTask == "")
+        {
+            SetClickedTask(taskTitle);
+        }
+        
+    }
 
     private IEnumerator GenerateTasks()
     {
@@ -121,7 +187,22 @@ public class TaskManager : MonoBehaviour
         GameObject arrow = arrows[title];
         Arrowdirection arrowdirection = arrow.GetComponent<Arrowdirection>();
         string destinationString = task.getDestination();
-        arrowdirection.UpdateDestination(taskData.GetPosition(destinationString, false) + interactorsTransform.position);
+        if (!inTutorial)
+        {
+            arrowdirection.UpdateDestination(taskData.GetPosition(destinationString, false) + interactorsTransform.position);
+        }
+        else
+        {
+            if(title.Equals("Pizza"))
+            {
+                arrowdirection.UpdateDestination(new Vector3(-22.31f, -3.76f, 0.0f) + interactorsTransform.position);
+            }
+            else
+            {
+                arrowdirection.UpdateDestination(new Vector3(-7.07f, -3.99f, -21.46f) + interactorsTransform.position);
+            }
+        }
+        
         updateTaskPanel(title);
     }
     

@@ -90,6 +90,8 @@ public class GameTask : MonoBehaviour
 
         titleText.text = taskInfo.title;
         contentText.text = taskInfo.description;
+        titleText.enabled = false;
+        contentText.enabled = false;
         
         Vector3 offset = new Vector3(0, -distance*this.index, 0);
         titleInstance.transform.localPosition += offset;
