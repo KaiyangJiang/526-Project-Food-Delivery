@@ -19,6 +19,7 @@ public class EnemyController : MonoBehaviour
     private bool isDestroyed = false;
 
     public Image imageobj;
+    public GameDataCollector gameDataCollector;
 
     private void OnEnable()
     {
@@ -33,6 +34,7 @@ public class EnemyController : MonoBehaviour
         agent = this.GetComponent<UnityEngine.AI.NavMeshAgent>();
         Player = GameObject.Find("Player").transform;
         manager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        GameDataCollector dataCollector = FindObjectOfType<GameDataCollector>();
     }
 
     // Update is called once per frame
@@ -97,6 +99,7 @@ public class EnemyController : MonoBehaviour
         {
             hp = 0;
             Eliminate();
+            gameDataCollector.monstersKilled++;
         }
     }
 

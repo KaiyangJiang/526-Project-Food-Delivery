@@ -12,6 +12,9 @@ public class GameDataCollector : MonoBehaviour
     public List<string> taskTypes = new List<string>();
     public int treasureBoxesCollected = 0;
     public int magicDoorsUsed = 0;
+    public int monstersKilled = 0;
+    public int weaponsBought = 0;
+    public int playerCaptured = 0;
 
     private void Awake()
     {
@@ -30,6 +33,9 @@ public class GameDataCollector : MonoBehaviour
         taskTypes.Clear();
         treasureBoxesCollected = 0;
         magicDoorsUsed = 0;
+        monstersKilled = 0;
+        weaponsBought = 0;
+        playerCaptured = 0;
     }
 
     public void SendDataToGoogleForm()
@@ -43,6 +49,10 @@ public class GameDataCollector : MonoBehaviour
         form.AddField("entry.1412186571", taskTypesString);  // Example data, replace with actual
         form.AddField("entry.1391756352", treasureBoxesCollected.ToString());
         form.AddField("entry.80712744", magicDoorsUsed.ToString());
+        form.AddField("entry.975634685", monstersKilled.ToString());
+        form.AddField("entry.913172920", weaponsBought.ToString());
+        form.AddField("entry.282716898", playerCaptured.ToString());
+
 
         UnityWebRequest www = UnityWebRequest.Post(formURL, form);
         StartCoroutine(WaitForRequest(www));
@@ -62,3 +72,4 @@ public class GameDataCollector : MonoBehaviour
         }
     }
 }
+

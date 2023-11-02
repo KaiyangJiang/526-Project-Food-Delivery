@@ -9,6 +9,7 @@ public class WeaponManager : MonoBehaviour
     private Dictionary<string, GameObject> weaponDictionary = new Dictionary<string, GameObject>();
     private Transform playerTransform;
     private List<string> weaponList = new List<string>();
+    public GameDataCollector gameDataCollector;
     // Start is called before the first frame update
     void Start()
     {
@@ -41,7 +42,12 @@ public class WeaponManager : MonoBehaviour
         }
         CreateWeapon(weaponName, weaponList.Count);
         weaponList.Add(weaponName);
-        
+        GameDataCollector dataCollector = FindObjectOfType<GameDataCollector>();
+        if (dataCollector != null)
+        {
+            dataCollector.weaponsBought++;
+        }
+
         return true;
     }
 

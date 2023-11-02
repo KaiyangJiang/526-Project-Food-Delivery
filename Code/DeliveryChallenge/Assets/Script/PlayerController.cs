@@ -345,6 +345,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag == "Door")
         {
             ShowMap();
+            gameDataCollector.magicDoorsUsed++;
         }
         //if(other.gameObject.tag == "Skulls")
         //{
@@ -419,6 +420,7 @@ public class PlayerController : MonoBehaviour
                 other.GetComponent<EnemyController>().Eliminate();
                 manager.DecreaseMoney(10);
                 manager.updateStatus("Hit by enemy -10$", 1, Color.red);
+                gameDataCollector.playerCaptured++;
             }
 
         }
