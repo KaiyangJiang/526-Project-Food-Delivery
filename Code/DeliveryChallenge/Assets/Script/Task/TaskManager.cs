@@ -81,6 +81,7 @@ public class TaskManager : MonoBehaviour
         {
             SetClickedTask(taskTitle);
         }
+        
     }
 
     private IEnumerator GenerateTasks()
@@ -123,6 +124,14 @@ public class TaskManager : MonoBehaviour
         activeTasksList.RemoveAt(index);
         currentTaskNum--;
         
+         if(title == clickedTask)
+        {
+            clickedTask = "";
+            if(currentTaskNum != 0)
+            {
+                SetClickedTask(activeTasksList[0].getTitle());
+            }
+        }
         GameObject arrow = arrows[title];
         arrows.Remove(title);
         Destroy(arrow);

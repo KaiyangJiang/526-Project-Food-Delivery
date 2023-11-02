@@ -22,6 +22,7 @@ public class BulletController : MonoBehaviour
         {
             isDestroyed = true;
             Destroy(this.gameObject);
+            return;
         }
         transform.LookAt(target.transform);
         transform.Translate(Vector3.forward * Time.deltaTime * speed);
