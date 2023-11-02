@@ -2457,7 +2457,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 202504804}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: treasureBoxButtonHandler
         m_Mode: 5
@@ -3270,7 +3270,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 202504804}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: RestartGame
         m_Mode: 1
@@ -8428,7 +8428,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 202504804}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: treasureBoxButtonHandler
         m_Mode: 5
@@ -10228,9 +10228,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: c3587f11462ed0f4ab90122c97936ade, type: 3}
+      - m_Target: {fileID: 202504804}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10240,7 +10240,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 957255742}
         m_TargetAssemblyTypeName: TaskManager, Assembly-CSharp
         m_MethodName: StartTasks
         m_Mode: 1
