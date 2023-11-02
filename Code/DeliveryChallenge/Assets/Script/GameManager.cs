@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI skillHint;
     public GameObject bagPanel;
     public GameObject bagGrid;
+    public GameObject taskPanel;
     public GameObject skillRoll;
     public Image fruits;
     public Image chicken;
@@ -64,6 +65,7 @@ public class GameManager : MonoBehaviour
         skillHint.gameObject.SetActive(false);
         GameOverPanel.SetActive(false);
         bagPanel.SetActive(false);
+        taskPanel.SetActive(false);
         skillRoll.SetActive(false);
         miniMap.SetActive(false);
         TreasureBoxPanel.SetActive(false);
@@ -295,6 +297,7 @@ public class GameManager : MonoBehaviour
     {
         startButton.gameObject.SetActive(false);
         bagPanel.SetActive(true);
+        taskPanel.SetActive(true);
         skillRoll.SetActive(true);
         gameStarted = true;
         guidePanel.SetActive(false);

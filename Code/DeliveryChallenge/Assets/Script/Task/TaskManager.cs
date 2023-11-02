@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -115,11 +116,13 @@ public class TaskManager : MonoBehaviour
         GameTask task = activeTasks[title];
         //task.setContent("Deliver a " + title + " to the ");
         task.updateTask();
+        //updateTaskPanel(title);
 
         GameObject arrow = arrows[title];
         Arrowdirection arrowdirection = arrow.GetComponent<Arrowdirection>();
         string destinationString = task.getDestination();
         arrowdirection.UpdateDestination(taskData.GetPosition(destinationString, false) + interactorsTransform.position);
+        updateTaskPanel(title);
     }
     
     public float completeTask(string title)
@@ -177,6 +180,20 @@ public class TaskManager : MonoBehaviour
             if (child.name == title)
             {
                 Destroy(child.gameObject);
+                break; 
+            }
+        }
+    }
+
+    private void updateTaskPanel(string title)
+    {
+        foreach (Transform child in tasksGrid.transform)
+        {
+            if (child.name == title)
+            {
+                
+                TextMeshProUGUI taskStatus = child.Find("TaskStatus").GetComponent<TextMeshProUGUI>();
+                taskStatus.text = "Picked Up";
                 break; 
             }
         }
