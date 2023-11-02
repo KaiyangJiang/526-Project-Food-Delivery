@@ -1,15 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TaskManager : MonoBehaviour
 {
     public GameTask gameTaskPrefab;  // 这是一个预制体，用于生成GameTask实例
     public GameObject arrowPrefab; // prefab to create arrows
-    private float spawnInterval = 17.0f;
+    private float spawnInterval = 10.0f;
     public Transform interactorsTransform;
     public Transform playerTransform;
     private TaskData taskData = new TaskData();
+    public GameObject tasksGrid;
+    public GameObject taskListItemPrefab;
+    public Sprite fruits;
+    public Sprite chicken;
+    public Sprite sushi;
+    public Sprite hamburger;
+    public Sprite fries;
+    public Sprite popcorn;
+    public Sprite pizzas;
+    Dictionary<string, Sprite> foodsImagesSprites = new Dictionary<string, Sprite>();
+    
 
     public GameDataCollector gameDataCollector;
 
@@ -22,14 +34,16 @@ public class TaskManager : MonoBehaviour
     private List<GameTask> activeTasksList = new List<GameTask>();
     private string clickedTask = "";
 
-    /*private void Start()
+    private void Start()
     {
-        // 创建初始的GameTask
-        CreateGameTask();
-
-        // 开始周期性生成GameTask
-        StartCoroutine(GenerateTasks());
-    }*/
+        foodsImagesSprites.Add("Pizza",pizzas);
+        foodsImagesSprites.Add("Fried Chicken", chicken);
+        foodsImagesSprites.Add("Fruits", fruits);
+        foodsImagesSprites.Add("Hamburger", hamburger);
+        foodsImagesSprites.Add("Popcorn", popcorn);
+        foodsImagesSprites.Add("French Fries", fries);
+        foodsImagesSprites.Add("Sushi", sushi);
+    }
 
     public void StartTasks()
     {
@@ -63,6 +77,9 @@ public class TaskManager : MonoBehaviour
         activeTasks.Add(taskTitle, newTask);
         activeDestinations.Add(taskDestination);
         activeTasksList.Add(newTask);
+        addToTaskPanel(taskTitle, taskInfo.color);
+        
+        
 
         gameDataCollector.RecordTaskType(taskTitle);
 
@@ -135,10 +152,39 @@ public class TaskManager : MonoBehaviour
         GameObject arrow = arrows[title];
         arrows.Remove(title);
         Destroy(arrow);
+        removeFromTaskPanel(title);
 
         gameDataCollector.tasksCompleted++;
 
         return money;
+    }
+
+    private void addToTaskPanel(string title, Color color)
+    {
+        GameObject taskLIstItemObject = Instantiate(taskListItemPrefab, tasksGrid.transform);
+        taskLIstItemObject.name = title;
+        Image taskColor = taskLIstItemObject.transform.Find("TaskColor").GetComponent<Image>();
+        taskColor.color = color;
+        Image taskIcon = taskLIstItemObject.transform.Find("TaskIcon").GetComponent<Image>();
+        taskIcon.sprite = foodsImagesSprites[title];
+    }
+    
+
+    private void removeFromTaskPanel(string title)
+    {
+        foreach (Transform child in tasksGrid.transform)
+        {
+            if (child.name == title)
+            {
+                Destroy(child.gameObject);
+                break; 
+            }
+        }
+    }
+
+    public void handleTaskClicked()
+    {
+        Debug.Log("888888");
     }
 
     public void SetClickedTask(string taskTitle)
