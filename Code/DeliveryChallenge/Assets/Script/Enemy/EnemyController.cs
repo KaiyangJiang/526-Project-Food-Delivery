@@ -99,7 +99,10 @@ public class EnemyController : MonoBehaviour
         {
             hp = 0;
             Eliminate(true);
-            gameDataCollector.monstersKilled++;
+            if(gameDataCollector != null)
+            {
+                gameDataCollector.monstersKilled++;
+            }
         }
     }
 

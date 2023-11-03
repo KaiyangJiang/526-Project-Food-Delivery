@@ -26,8 +26,12 @@ public class TreasureBox : MonoBehaviour
             {
                 manager.updateTutorial(2);
                 playerController.openMagicBox();
-                gameDataCollector.treasureBoxesCollected++;
+                if(gameDataCollector != null)
+                {
+                    gameDataCollector.treasureBoxesCollected++;
+                }
                 Destroy(this.gameObject);
+                
             }
         }
     }

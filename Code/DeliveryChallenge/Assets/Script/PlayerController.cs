@@ -351,7 +351,10 @@ public class PlayerController : MonoBehaviour
         {
             manager.updateTutorial(6);
             ShowMap();
-            gameDataCollector.magicDoorsUsed++;
+            if(gameDataCollector != null)
+            {
+                gameDataCollector.magicDoorsUsed++;
+            }
         }
         //if(other.gameObject.tag == "Skulls")
         //{
@@ -424,7 +427,10 @@ public class PlayerController : MonoBehaviour
             if (Vector3.Distance(other.transform.position, transform.position) < 0.5f && !other.GetComponent<EnemyController>().IsDestroyed())
             {
                 other.GetComponent<EnemyController>().Eliminate(false);
-                gameDataCollector.playerCaptured++;
+                if(gameDataCollector != null)
+                {
+                    gameDataCollector.playerCaptured++;
+                }
             }
 
         }

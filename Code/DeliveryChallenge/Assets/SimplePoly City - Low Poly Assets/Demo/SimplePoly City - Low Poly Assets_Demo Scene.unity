@@ -2326,6 +2326,12 @@ MonoBehaviour:
     -10$'
   treasureBoxIndexes: 0000000001000000
   tutorialPanel: {fileID: 0}
+  tutorialTextPanel: {fileID: 0}
+  skipbutton: {fileID: 0}
+  finishTutorialPanel: {fileID: 0}
+  tutorialMissionText: {fileID: 0}
+  tutorialItems: []
+  tutorialItemInd: 
 --- !u!1 &207825240 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 0ee37198b24b2164fbbccfbe92fe5d35, type: 3}
@@ -24613,7 +24619,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxWeaponNum: 6
-  gameDataCollector: {fileID: 0}
+  gameDataCollector: {fileID: 2024137574}
 --- !u!1 &2132397219
 GameObject:
   m_ObjectHideFlags: 0

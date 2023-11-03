@@ -87,8 +87,10 @@ public class TaskManager : MonoBehaviour
         addToTaskPanel(taskTitle, taskInfo.color);
         
         
-
-        gameDataCollector.RecordTaskType(taskTitle);
+        if(gameDataCollector != null)
+        {
+            gameDataCollector.RecordTaskType(taskTitle);
+        }
 
         // create an arrow pointing to the Get position
         Vector3 bias = new Vector3(-2.50f, 2.50f, 0);
@@ -140,8 +142,10 @@ public class TaskManager : MonoBehaviour
         addToTaskPanel(taskTitle, taskInfo.color);
         
         
-
-        gameDataCollector.RecordTaskType(taskTitle);
+        if(gameDataCollector != null)
+        {
+            gameDataCollector.RecordTaskType(taskTitle);
+        }
 
         // create an arrow pointing to the Get position
         Vector3 bias = new Vector3(-2.50f, 2.50f, 0);
@@ -238,8 +242,11 @@ public class TaskManager : MonoBehaviour
         Destroy(arrow);
         removeFromTaskPanel(title);
 
-        gameDataCollector.tasksCompleted++;
-
+        if(gameDataCollector != null)
+        {
+            gameDataCollector.tasksCompleted++;
+        }
+        
         return money;
     }
 

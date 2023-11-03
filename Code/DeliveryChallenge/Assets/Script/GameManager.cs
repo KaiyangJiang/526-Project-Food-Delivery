@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
         {
             finishTutorialPanel.SetActive(false);
         }
-        tutorialItemInd = new List<int>(){0,0,0,0,0,0,0,1};
+        tutorialItemInd = new List<int>(){0,0,0,0,0,0,0,1,0};
         tutorialItems = new List<string>() {
         "Tutorial: Follow arrow and Pick up food",
         "Tutorial: Now try to run into the box",
@@ -91,7 +91,8 @@ public class GameManager : MonoBehaviour
         "Tutorial: Try to defeat the enemy (Hint: Box may have weapon)",
         "Tutorial: Find teleport door",
         "Tutorial: Click on map to teleport",
-        "Congrats you have finished tutorial"};
+        "Congrats you have finished tutorial",
+        "Tutorial: You can try to click the task to get direction"};
         //guidePanel.SetActive(false);
         //inTutorial = true;
         weaponManager = GameObject.Find("WeaponManager").GetComponent<WeaponManager>();
@@ -322,7 +323,7 @@ public class GameManager : MonoBehaviour
             DecreaseMoney(10);
             updateStatus("+UZI and Money -10$", 1, Color.green);
         }
-        updateTutorial(3);
+        updateTutorial(8);
     }
     public void openMap()
     {

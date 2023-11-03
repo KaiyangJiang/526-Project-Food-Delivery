@@ -42,10 +42,10 @@ public class WeaponManager : MonoBehaviour
         }
         CreateWeapon(weaponName, weaponList.Count);
         weaponList.Add(weaponName);
-        GameDataCollector dataCollector = FindObjectOfType<GameDataCollector>();
-        if (dataCollector != null)
+
+        if(gameDataCollector != null)
         {
-            dataCollector.weaponsBought++;
+            gameDataCollector.weaponsBought++;
         }
 
         return true;
