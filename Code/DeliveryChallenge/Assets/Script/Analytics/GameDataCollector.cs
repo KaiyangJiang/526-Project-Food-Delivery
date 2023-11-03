@@ -26,6 +26,11 @@ public class GameDataCollector : MonoBehaviour
         taskTypes.Add(taskType);
     }
 
+    private void OnApplicationQuit()
+    {
+        SendDataToGoogleForm();
+    }
+
     public void ClearData()
     {
         goldCollected = 0;
@@ -58,7 +63,7 @@ public class GameDataCollector : MonoBehaviour
         StartCoroutine(WaitForRequest(www));
     }
 
-    void OnApplicationQuit() { SendDataToGoogleForm(); }
+    
     IEnumerator WaitForRequest(UnityWebRequest www)
     {
         yield return www.SendWebRequest();
