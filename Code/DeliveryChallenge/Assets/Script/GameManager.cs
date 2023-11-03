@@ -240,6 +240,11 @@ public class GameManager : MonoBehaviour
     //handle when time is up and game
     void handleGameOver()
     {
+        if (isGameActive)
+        {
+            gameDataCollector.goldCollected = (int)money;
+            gameDataCollector.SendDataToGoogleForm();
+        }
         timeLeft = 0;
         timerOn = false;
         isGameActive = false;
@@ -249,8 +254,7 @@ public class GameManager : MonoBehaviour
         gameOverText.text = "Congraduations!";
         displayMoneyText.text = "You Earned: " + money.ToString() + " $";
         restartButton.gameObject.SetActive(true);
-        gameDataCollector.goldCollected = (int)money;
-        gameDataCollector.SendDataToGoogleForm();
+        
     }
 
     public void treasureBoxButtonHandler(string button)
