@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
+using System.Linq;
 public class GameManager : MonoBehaviour
 {
     private double money;
@@ -57,9 +58,42 @@ public class GameManager : MonoBehaviour
     public List<string> treasureBoxItems = new List<string>() { "+10$\n-15s", "+15s \n-10$", "+Mechine Gun\n-10$", "+Hand Gun\n-10$", "+UZI\n-10$"};
     public List<int> treasureBoxIndexes = new List<int>() {0,1};
     // Start is called before the first frame update
+    // tutorial variables
+    public GameObject tutorialPanel;
+    public GameObject tutorialTextPanel;
+    public GameObject skipbutton;
+    public GameObject finishTutorialPanel;
+    public TextMeshProUGUI tutorialMissionText;
+
+    public List<string> tutorialItems;
+    public List<int> tutorialItemInd;
     void Start()
     {
-        inTutorial = true;
+        print("xxx start");
+        if (tutorialTextPanel)
+        {
+            tutorialTextPanel.SetActive(false);
+        }
+        if (skipbutton)
+        {
+            skipbutton.SetActive(false);
+        }
+        if (finishTutorialPanel)
+        {
+            finishTutorialPanel.SetActive(false);
+        }
+        tutorialItemInd = new List<int>(){0,0,0,0,0,0,0,1};
+        tutorialItems = new List<string>() {
+        "Tutorial: Follow arrow and Pick up food",
+        "Tutorial: Now try to run into the box",
+        "Tutorial: Pick one effect from box",
+        "Tutorial: Follow arrow and deliver food",
+        "Tutorial: Try to defeat the enemy (Hint: Box may have weapon)",
+        "Tutorial: Find teleport door",
+        "Tutorial: Click on map to teleport",
+        "Congrats you have finished tutorial"};
+        //guidePanel.SetActive(false);
+        //inTutorial = true;
         weaponManager = GameObject.Find("WeaponManager").GetComponent<WeaponManager>();
         statusText.text = "";
         startButton.gameObject.SetActive(true);
@@ -91,6 +125,13 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        string combinedString = string.Join(", ", tutorialItemInd);
+        print("xxx here");
+        print("xxx status text list: " + combinedString);
+        
+        if(tutorialItemInd.All(n => n == 1)){
+            finishTutorialPanel.SetActive(true);
+        }
         if (gameStarted)
         {
             startButton.gameObject.SetActive(false);
@@ -281,6 +322,18 @@ public class GameManager : MonoBehaviour
             DecreaseMoney(10);
             updateStatus("+UZI and Money -10$", 1, Color.green);
         }
+        updateTutorial(3);
+    }
+    public void openMap()
+    {
+        if (miniMap.activeSelf)
+        {
+            miniMap.SetActive(false);
+        }
+        else
+        {
+            miniMap.SetActive(true);
+        }
     }
 
     public void updateStatus(string Text,float TimeDuration,Color color)
@@ -305,5 +358,48 @@ public class GameManager : MonoBehaviour
         guidePanel.SetActive(false);
         timerOn = true;
         timeLeft = 180f;
+    }
+
+    public void SkipTutorial()
+    {
+        SceneManager.LoadScene(1);
+        tutorialPanel.SetActive(false);
+        StartGame();
+        
+    }
+
+    public void StartTutorial()
+    {
+        inTutorial = true;
+        tutorialPanel.SetActive(false);
+        skipbutton.SetActive(true);
+        StartGame();
+        tutorialTextPanel.SetActive(true);
+        tutorialMissionText.text = "Tutorial: Follow arrow and Pick up food";
+        timerOn = false;
+    }
+
+    public void updateTutorial(int cur)
+    {
+        
+        if (tutorialMissionText)
+        {
+            print("xxx status text: " + tutorialItems[cur]);
+            print("xxx status text count: "+tutorialItems.Count);
+            print("xxx status text next: " + tutorialMissionText.text);
+            for (int i = 0; i < tutorialItems.Count; i++)
+            {
+                if (tutorialMissionText)
+                {
+                    if (tutorialItems[i] == tutorialMissionText.text)
+                    {
+                        tutorialItemInd[i] = 1;
+                    }
+                }
+
+            }
+            tutorialMissionText.text = tutorialItems[cur];
+        }
+        
     }
 }

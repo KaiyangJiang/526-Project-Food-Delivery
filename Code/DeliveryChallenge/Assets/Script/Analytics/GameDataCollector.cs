@@ -58,6 +58,7 @@ public class GameDataCollector : MonoBehaviour
         StartCoroutine(WaitForRequest(www));
     }
 
+    void OnApplicationQuit() { SendDataToGoogleForm(); }
     IEnumerator WaitForRequest(UnityWebRequest www)
     {
         yield return www.SendWebRequest();

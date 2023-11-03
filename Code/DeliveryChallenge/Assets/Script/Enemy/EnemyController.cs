@@ -98,18 +98,28 @@ public class EnemyController : MonoBehaviour
         if(hp <= 0)
         {
             hp = 0;
-            Eliminate();
+            Eliminate(true);
             gameDataCollector.monstersKilled++;
         }
     }
 
-    public void Eliminate() 
+    public void Eliminate(bool isKilled)
     {
         EnemyManager.Instance.initEnemy2(gameObject);
         isDestroyed = true;
         gameObject.SetActive(false);
-        manager.AddMoney(bonus);
-        manager.updateStatus("Killing enemy bonus +15$", 1, Color.red);
+        if (isKilled)
+        {
+            manager.AddMoney(bonus);
+            manager.updateStatus("Killing enemy bonus +15$", 1, Color.red);
+            manager.updateTutorial(5);
+        }
+        else
+        {
+            manager.DecreaseMoney(10);
+            manager.updateStatus("Hit by enemy -10$", 1, Color.red);
+        }
+        
         //Destroy(this.gameObject);
     }
 

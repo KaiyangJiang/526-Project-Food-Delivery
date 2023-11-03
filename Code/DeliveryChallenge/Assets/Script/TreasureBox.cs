@@ -5,10 +5,11 @@ using UnityEngine;
 public class TreasureBox : MonoBehaviour
 {
     public GameDataCollector gameDataCollector;
+    private GameManager manager;
     // Use this for initialization
     void Start()
     {
-
+        manager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -23,6 +24,7 @@ public class TreasureBox : MonoBehaviour
             PlayerController playerController = other.GetComponent<PlayerController>();
             if (playerController)
             {
+                manager.updateTutorial(2);
                 playerController.openMagicBox();
                 gameDataCollector.treasureBoxesCollected++;
                 Destroy(this.gameObject);

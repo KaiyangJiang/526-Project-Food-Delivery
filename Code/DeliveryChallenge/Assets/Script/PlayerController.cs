@@ -128,6 +128,9 @@ public class PlayerController : MonoBehaviour
                         manager.addToBag(currentTaskTitle);
                         taskManager.updateTask(currentTaskTitle);
                         manager.unshowHint();
+                        //tutorial
+                        manager.updateTutorial(1);
+                        
                     }
                 }
                 else if (canDeliver)
@@ -141,6 +144,8 @@ public class PlayerController : MonoBehaviour
                         manager.AddMoney(money);
                         manager.unshowHint();
                         canDeliver = false;
+                        //tutorial
+                        manager.updateTutorial(4);
                     }
               
                 }
@@ -230,7 +235,6 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
-
         }
         manager.timeLeft -= 15.0f;
     }
@@ -311,10 +315,11 @@ public class PlayerController : MonoBehaviour
             MoneyIncrease();
             manager.updateStatus("Money +10$", 1,Color.yellow);
         }*/
-
+        
         manager.TreasureBoxPanel.SetActive(true);
         manager.timerOn = false;
         manager.inTresureBox = true;
+        
     }
 
     void ShowMap()
@@ -344,6 +349,7 @@ public class PlayerController : MonoBehaviour
         */
         if (other.gameObject.tag == "Door")
         {
+            manager.updateTutorial(6);
             ShowMap();
             gameDataCollector.magicDoorsUsed++;
         }
@@ -417,9 +423,7 @@ public class PlayerController : MonoBehaviour
             //d=Debug.Log(Vector3.Distance(Player.position, transform.position));
             if (Vector3.Distance(other.transform.position, transform.position) < 0.5f && !other.GetComponent<EnemyController>().IsDestroyed())
             {
-                other.GetComponent<EnemyController>().Eliminate();
-                manager.DecreaseMoney(10);
-                manager.updateStatus("Hit by enemy -10$", 1, Color.red);
+                other.GetComponent<EnemyController>().Eliminate(false);
                 gameDataCollector.playerCaptured++;
             }
 
