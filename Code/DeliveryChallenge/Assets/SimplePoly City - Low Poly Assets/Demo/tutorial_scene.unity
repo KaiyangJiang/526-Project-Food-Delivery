@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &4
 LightmapSettings:
@@ -1648,6 +1648,7 @@ MonoBehaviour:
   showGameOver: 0
   showMoney: 0
   statusTextInput: 
+  isInVisible: 0
   pause: 0
   pizza: 0
   isGameActive: 0
@@ -1672,7 +1673,9 @@ MonoBehaviour:
   tutorialTextPanel: {fileID: 1513023533}
   skipbutton: {fileID: 1008939754}
   finishTutorialPanel: {fileID: 1462471708}
+  deliveryMan: {fileID: 1386744479}
   tutorialMissionText: {fileID: 1100310169}
+  transparency: 0.5
   tutorialItems:
   - 'Tutorial: Follow arrow and Pick up food'
   - 'Tutorial: Now try to run into the box'
@@ -9931,6 +9934,11 @@ Transform:
   m_Father: {fileID: 171774472}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1386744479 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100002, guid: d49af8694c5ff854eae4c1f1f307bdd8, type: 3}
+  m_PrefabInstance: {fileID: 1616909365}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1395335796
 GameObject:
   m_ObjectHideFlags: 0
@@ -11891,7 +11899,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1674312513}
-  m_LocalRotation: {x: 0.08384286, y: -0.67564225, z: 0.077780284, w: 0.72830504}
+  m_LocalRotation: {x: 0.08384286, y: -0.67564225, z: 0.07778029, w: 0.72830504}
   m_LocalPosition: {x: 116.20157, y: 2.183, z: 111.145256}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -12396,7 +12404,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1704015169}
-  m_LocalRotation: {x: 0.08384286, y: -0.67564225, z: 0.077780284, w: 0.72830504}
+  m_LocalRotation: {x: 0.08384286, y: -0.67564225, z: 0.07778029, w: 0.72830504}
   m_LocalPosition: {x: 116.20157, y: 2.183, z: 111.145256}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

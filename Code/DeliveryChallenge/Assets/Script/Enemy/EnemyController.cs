@@ -40,6 +40,14 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (manager.isInVisible)
+        {
+            agent.speed = 0f;
+        }
+        else
+        {
+            agent.speed = 3.5f;
+        }
         if(agent.remainingDistance < 0.01f && !agent.pathPending)
         {
             MoveToNextLocation();

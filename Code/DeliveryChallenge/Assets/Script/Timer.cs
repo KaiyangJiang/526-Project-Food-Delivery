@@ -12,6 +12,7 @@ public class Timer : MonoBehaviour
     public UnityEvent onTimerEnd;
 
     private PlayerController playerController;
+    private GameManager gameManager;
     [Range(0, 23)]
     public int hours;
     [Range(0, 59)]
@@ -118,6 +119,7 @@ public class Timer : MonoBehaviour
             StartTimer();
             //skillTimer.gameObject.SetActive(false);
             playerController = GameObject.Find("Player").GetComponent<PlayerController>();
+            gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         }
         else
         {
@@ -194,6 +196,7 @@ public class Timer : MonoBehaviour
             onTimerEnd.Invoke();
             DisplayInTextObject();
             playerController.setTriggerSkill(false);
+            gameManager.setVisible();
             countMethod = CountMethod.CountUp;
         }
     }

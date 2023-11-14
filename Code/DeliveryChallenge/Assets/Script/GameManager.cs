@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
     public bool showGameOver = false;
     public bool showMoney = false;
     public string statusTextInput = "";
+    public bool isInVisible = false;
     public bool pause = false;
     public int pizza = 0;
     public bool isGameActive;
@@ -63,8 +64,9 @@ public class GameManager : MonoBehaviour
     public GameObject tutorialTextPanel;
     public GameObject skipbutton;
     public GameObject finishTutorialPanel;
+    public GameObject deliveryMan;
     public TextMeshProUGUI tutorialMissionText;
-
+    public float transparency = 0.5f;
     public List<string> tutorialItems;
     public List<int> tutorialItemInd;
     void Start()
@@ -295,7 +297,28 @@ public class GameManager : MonoBehaviour
         treasureBoxIndexes[1] = rightRandom;
         print("xxx " + treasureBoxIndexes);
     }
-
+    public void setInvisible()
+    {
+        Renderer renderer = deliveryMan.GetComponent<Renderer>();
+        if (renderer != null)
+        {
+            Color color = renderer.material.color;
+            color.a = transparency; // Set the alpha value
+            renderer.material.color = color; // Apply the new color with updated alpha
+            isInVisible = true;
+        }
+    }
+    public void setVisible()
+    {
+        Renderer renderer = deliveryMan.GetComponent<Renderer>();
+        if (renderer != null)
+        {
+            Color color = renderer.material.color;
+            color.a = 1.0f; // Set the alpha value
+            renderer.material.color = color; // Apply the new color with updated alpha
+            isInVisible = false;
+        }
+    }
     public void assignTreasureEffects(int num)
     {
         if (num == 0)

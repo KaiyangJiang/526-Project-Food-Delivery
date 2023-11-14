@@ -68,6 +68,14 @@ public class PlayerController : MonoBehaviour
                     instatMove();
                 }
             }
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                if (triggerSkill)
+                {
+
+                    manager.setInvisible();
+                }
+            }
             if (Input.GetKeyDown(KeyCode.Space) && isGround)
             {
                 //jumpInput = jumpVelocity;
