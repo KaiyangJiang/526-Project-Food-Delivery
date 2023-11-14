@@ -408,7 +408,6 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("set trigger skill");
         this.triggerSkill = canTrigger;
-        manager.skillHint.gameObject.SetActive(canTrigger);
     }
 
     void OnTriggerExit(Collider other)

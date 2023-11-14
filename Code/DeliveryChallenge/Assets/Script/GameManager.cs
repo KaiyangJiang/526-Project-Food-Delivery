@@ -24,7 +24,6 @@ public class GameManager : MonoBehaviour
     public GameObject TreasureBoxPanel;
     public GameObject miniMap;
     public GameDataCollector gameDataCollector;
-    public TextMeshProUGUI skillHint;
     public GameObject bagPanel;
     public GameObject bagGrid;
     public GameObject taskPanel;
@@ -101,7 +100,6 @@ public class GameManager : MonoBehaviour
         statusText.text = "";
         startButton.gameObject.SetActive(true);
         restartButton.gameObject.SetActive(false);
-        skillHint.gameObject.SetActive(false);
         GameOverPanel.SetActive(false);
         bagPanel.SetActive(false);
         taskPanel.SetActive(false);
