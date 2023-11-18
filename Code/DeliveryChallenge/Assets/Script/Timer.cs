@@ -215,7 +215,7 @@ public class Timer : MonoBehaviour
             timeRemaining = 10;
             playerController.setTriggerSkill(true);
             DisplayInTextObject();
-            timerRunning = true;
+            timerRunning = false;
             countMethod = CountMethod.CountDown;
         }
     }
@@ -388,7 +388,10 @@ public class Timer : MonoBehaviour
 
         return convertedNumber;
     }
-
+    public void setTimerRunning(bool isRun)
+    {
+        timerRunning = isRun;
+    }
     private static void RemainingSecondsToHHMMSSMMM(double totalSeconds, out float hours, out float minutes, out float seconds)
     {
         hours = Mathf.FloorToInt((float)totalSeconds / 60 / 60);

@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     private TaskManager taskManager;
     private bool canGet;
     private bool canDeliver;
+    private bool useInstantMove = false;
     public float jumpAmount = 1000;
     private Vector3 bounceOffSet = new Vector3(-5, 0, 0);
     private Vector3 startPosition; // Store the starting position of the player
@@ -98,7 +99,10 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 rotation = Vector3.up * horizontalInput;
             Quaternion angleRot = Quaternion.Euler(rotation * Time.fixedDeltaTime);
-            _rb.MovePosition(this.transform.position + this.transform.forward * forwardInput * Time.fixedDeltaTime);
+            if (!useInstantMove)
+            {
+                _rb.MovePosition(this.transform.position + this.transform.forward * forwardInput * Time.fixedDeltaTime);
+            }
             _rb.MoveRotation(_rb.rotation * angleRot);
             if (EnemyTrigger)
             {
@@ -107,6 +111,7 @@ public class PlayerController : MonoBehaviour
                 EnemyTrigger = false;
             }
         }
+
     }
 
     // Update is called once per frame
@@ -160,6 +165,8 @@ public class PlayerController : MonoBehaviour
 
             }
 
+            
+
             if (Input.GetKeyDown(KeyCode.M))
             {
                 if (manager.miniMap.activeSelf)
@@ -172,12 +179,12 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-                if (transform.position.y <= -1)
+            if (transform.position.y <= -1)
             {
                 ResetToStartPosition();
                 TimeDecrease();
             }
-             
+            useInstantMove = false;
         }
         else
         {
@@ -208,17 +215,19 @@ public class PlayerController : MonoBehaviour
     }
     public void instatMove()
     {
+        manager.timer.setTimerRunning(true);
         if (firstTime)
         {
-            transform.Translate(Vector3.forward * Time.deltaTime * speed * 100);
+            transform.Translate(Vector3.forward * Time.deltaTime * speed * 200);
             firstTime = false;
         }
         else
         {
-            transform.Translate(Vector3.forward * Time.deltaTime * speed * 300);
+            transform.Translate(Vector3.forward * Time.deltaTime * speed * 400);
         }
         //_rb.MovePosition(this.transform.position + this.transform.forward * speed * 100 * Time.fixedDeltaTime);
         Debug.Log("Instant move");
+        useInstantMove = true;
     }
     public void ResetToRandomPosition()
     {

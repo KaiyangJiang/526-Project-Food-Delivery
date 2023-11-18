@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     public GameObject bagGrid;
     public GameObject taskPanel;
     public GameObject skillRoll;
+    public Timer timer;
     public Image fruits;
     public Image chicken;
     public Image sushi;
@@ -97,6 +98,7 @@ public class GameManager : MonoBehaviour
         //guidePanel.SetActive(false);
         //inTutorial = true;
         weaponManager = GameObject.Find("WeaponManager").GetComponent<WeaponManager>();
+        timer = GameObject.Find("DialSeconds").GetComponent<Timer>();
         statusText.text = "";
         startButton.gameObject.SetActive(true);
         restartButton.gameObject.SetActive(false);
@@ -298,6 +300,7 @@ public class GameManager : MonoBehaviour
     public void setInvisible()
     {
         Renderer renderer = deliveryMan.GetComponent<Renderer>();
+        timer.setTimerRunning(true);
         if (renderer != null)
         {
             Color color = renderer.material.color;

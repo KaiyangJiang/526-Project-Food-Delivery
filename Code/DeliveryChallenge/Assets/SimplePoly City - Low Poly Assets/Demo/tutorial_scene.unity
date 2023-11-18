@@ -1633,6 +1633,7 @@ MonoBehaviour:
   bagGrid: {fileID: 1861715213}
   taskPanel: {fileID: 1585996818}
   skillRoll: {fileID: 149417939}
+  timer: {fileID: 0}
   fruits: {fileID: 1214348614750280232, guid: ddc1b6c3ece194420b2edd98a1834169, type: 3}
   chicken: {fileID: 887690952769598123, guid: f586f0bde739544e3849b3932969acf2, type: 3}
   sushi: {fileID: 2999660864935099682, guid: b991592d33cda4f11bee00cd87fd105b, type: 3}
@@ -11060,7 +11061,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Trigger skills when timer counts down
+  m_text: Trigger skills when the charge bar is full
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
