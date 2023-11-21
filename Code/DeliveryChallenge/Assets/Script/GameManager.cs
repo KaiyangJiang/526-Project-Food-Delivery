@@ -28,6 +28,13 @@ public class GameManager : MonoBehaviour
     public GameObject bagGrid;
     public GameObject taskPanel;
     public GameObject skillRoll;
+    public GameObject shieldIcon;
+    public GameObject TreasureBoxLeftImg;
+    public GameObject TreasureBoxRightImg;
+    public Sprite dollar;
+    public Sprite clock;
+    public Sprite defense;
+    public Sprite gun;
     public Timer timer;
     public Image fruits;
     public Image chicken;
@@ -55,8 +62,9 @@ public class GameManager : MonoBehaviour
     public bool isGameActive;
     public bool inTresureBox = false;
     public bool inTutorial = false;
+    public bool shield = false;
     public HashSet<string> itemsInHand = new HashSet<string>();
-    public List<string> treasureBoxItems = new List<string>() { "+10$\n-15s", "+15s \n-10$", "+Mechine Gun\n-10$", "+Hand Gun\n-10$", "+UZI\n-10$"};
+    public List<string> treasureBoxItems = new List<string>() { "+10$\n-15s", "+15s \n-10$", "+Mechine Gun\n-10$", "+Hand Gun\n-10$", "+UZI\n-10$", "+ Shield" };
     public List<int> treasureBoxIndexes = new List<int>() {0,1};
     // Start is called before the first frame update
     // tutorial variables
@@ -71,9 +79,11 @@ public class GameManager : MonoBehaviour
     public List<int> tutorialItemInd;
     void Start()
     {
+        GoalMoney = 100;
         print("xxx start");
         if (tutorialTextPanel)
         {
+            GoalMoney = 10000;
             tutorialTextPanel.SetActive(false);
         }
         if (skipbutton)
@@ -97,6 +107,7 @@ public class GameManager : MonoBehaviour
         "Tutorial: You can try to click the task to get direction"};
         //guidePanel.SetActive(false);
         //inTutorial = true;
+        treasureBoxItems = new List<string>() { "+10$\n-15s", "+15s \n-10$", "+Mechine Gun\n-10$", "+Hand Gun\n-10$", "+UZI\n-10$", "+ Shield" };
         weaponManager = GameObject.Find("WeaponManager").GetComponent<WeaponManager>();
         timer = GameObject.Find("DialSeconds").GetComponent<Timer>();
         statusText.text = "";
@@ -112,7 +123,6 @@ public class GameManager : MonoBehaviour
         money = 0;
         statusTime = 181.0f;
         timeLeft = 180.0f;
-        GoalMoney = 100;
         moneyText.text = "Goal: $" + money + "/ $"+GoalMoney;
         interactText.text = "";
         gameOverText.text = "";
@@ -130,7 +140,7 @@ public class GameManager : MonoBehaviour
     {
         string combinedString = string.Join(", ", tutorialItemInd);
         print("xxx here");
-        print("xxx status text list: " + combinedString);
+        print("xxx status text list: " + treasureBoxItems.Count);
         
         if(tutorialItemInd.All(n => n == 1)){
             finishTutorialPanel.SetActive(true);
@@ -285,17 +295,62 @@ public class GameManager : MonoBehaviour
 
     public void assignTreasureBox()
     {
-        int leftRandom = Random.Range(0, 4);
+        int leftRandom = Random.Range(0, 6);
         leftBoxText.text = treasureBoxItems[leftRandom];
-        int rightRandom = Random.Range(0, 4);
+        int rightRandom = Random.Range(0, 6);
         while (rightRandom == leftRandom)
         {
-            rightRandom = Random.Range(0, 4);
+            rightRandom = Random.Range(0, 6);
         }
         rightBoxText.text = treasureBoxItems[rightRandom];
         treasureBoxIndexes[0] = leftRandom;
         treasureBoxIndexes[1] = rightRandom;
+        assignTreasureBoxImg(leftRandom, true);
+        assignTreasureBoxImg(rightRandom, false);
         print("xxx " + treasureBoxIndexes);
+    }
+
+    public void assignTreasureBoxImg(int num, bool isLeft)
+    {
+        if (isLeft)
+        {
+            if (num == 0)
+            {
+                TreasureBoxLeftImg.GetComponent<Image>().sprite = dollar; 
+            }
+            else if (num == 1)
+            {
+                TreasureBoxLeftImg.GetComponent<Image>().sprite = clock;
+            }
+            else if (num == 5)
+            {
+                TreasureBoxLeftImg.GetComponent<Image>().sprite = defense;
+            }
+            else
+            {
+                TreasureBoxLeftImg.GetComponent<Image>().sprite = gun;
+            }
+        }
+        else
+        {
+            if (num == 0)
+            {
+                TreasureBoxRightImg.GetComponent<Image>().sprite = dollar;
+            }
+            else if (num == 1)
+            {
+                TreasureBoxRightImg.GetComponent<Image>().sprite = clock;
+            }
+            else if (num == 5)
+            {
+                TreasureBoxRightImg.GetComponent<Image>().sprite = defense;
+            }
+            else
+            {
+                TreasureBoxRightImg.GetComponent<Image>().sprite = gun;
+            }
+        }
+        
     }
     public void setInvisible()
     {
@@ -350,6 +405,12 @@ public class GameManager : MonoBehaviour
             weaponManager.Add("Uzi");
             DecreaseMoney(10);
             updateStatus("+UZI and Money -10$", 1, Color.green);
+        }
+        else if(num == 5)
+        {
+            shield = true;
+            shieldIcon.SetActive(true);
+            updateStatus("Shield On", 1, Color.green);
         }
         updateTutorial(8);
     }

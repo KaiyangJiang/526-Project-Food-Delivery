@@ -44,6 +44,9 @@ public class EnemyController : MonoBehaviour
         {
             agent.speed = 0f;
         }
+        else if(manager.inTresureBox){
+            agent.speed = 0f;
+        }
         else
         {
             agent.speed = 3.5f;
@@ -122,13 +125,23 @@ public class EnemyController : MonoBehaviour
         if (isKilled)
         {
             manager.AddMoney(bonus);
-            manager.updateStatus("Killing enemy bonus +15$", 1, Color.red);
+            manager.updateStatus("Killing enemy bonus +15$", 1, Color.green);
             manager.updateTutorial(5);
         }
         else
         {
-            manager.DecreaseMoney(10);
-            manager.updateStatus("Hit by enemy -10$", 1, Color.red);
+            if (manager.shield == true)
+            {
+                manager.updateStatus("Shield Off", 1, Color.red);
+                manager.shield = false;
+                manager.shieldIcon.SetActive(false);
+            }
+            else
+            {
+                manager.DecreaseMoney(10);
+                manager.updateStatus("Hit by enemy -10$", 1, Color.red);
+            }
+            
         }
         
         //Destroy(this.gameObject);
