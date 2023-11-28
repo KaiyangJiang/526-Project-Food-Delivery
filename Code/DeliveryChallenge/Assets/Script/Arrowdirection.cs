@@ -33,4 +33,9 @@ public class Arrowdirection : MonoBehaviour
     public void UpdateDestination(Vector3 destination) {
         this.destination = destination;
     }
+
+    public Vector3 GetDestination()
+    {
+        return destination;
+    }
 }
