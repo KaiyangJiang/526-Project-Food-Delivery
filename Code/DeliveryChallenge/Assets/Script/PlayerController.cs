@@ -37,6 +37,8 @@ public class PlayerController : MonoBehaviour
     public GameDataCollector gameDataCollector;
 
     private WeaponManager weaponManager;
+    
+    private Transform playerTransform;
 
     // Start is called before the first frame update
     void Start()
@@ -53,6 +55,7 @@ public class PlayerController : MonoBehaviour
         // weaponManager.Add("AK74");
         // weaponManager.Add("Uzi");
         Overviewmap.SetActive(false);
+        playerTransform = transform;
     }
 
     void Update()
@@ -349,6 +352,28 @@ public class PlayerController : MonoBehaviour
         Overviewmap.SetActive(false);
     }
 
+    public void TeleportToArrowTarget()
+    {
+        Arrowdirection arrowDirection = taskManager.GetActiveArrowDirection();
+        if (arrowDirection != null)
+        {
+            Vector3 targetPosition = arrowDirection.GetDestination();
+            if (targetPosition != Vector3.zero) // Make sure it's a valid position
+            {
+                playerTransform.position = targetPosition;
+                Debug.Log("Teleporting to destination: " + targetPosition);
+            }
+            else
+            {
+                Debug.LogWarning("Arrow's target position is not set.");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("No active arrow direction found.");
+        }
+    }
+
     void OnTriggerEnter(Collider other)
     {
         Debug.Log("---Trigger entered with: " + other.gameObject.name); // This will print the name of the object the player collided with.
@@ -367,8 +392,12 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag == "Door")
         {
             manager.updateTutorial(6);
-            ShowMap();
-            if(gameDataCollector != null)
+            TeleportToArrowTarget();
+
+
+
+
+            if (gameDataCollector != null)
             {
                 gameDataCollector.magicDoorsUsed++;
             }

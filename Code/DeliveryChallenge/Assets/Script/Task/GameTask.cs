@@ -41,19 +41,20 @@ public class GameTask : MonoBehaviour
         /*GameObject uiObj = Instantiate(taskDescriptionUIPrefab, transform);
         Transform titleTransform = uiObj.transform.Find("Canvas/Title");
         Transform contentTransform = uiObj.transform.Find("Canvas/Content");*/
-        /*GameObject titleInstance = Instantiate(titlePrefab, canvas.transform);
-        GameObject contentInstance = Instantiate(contentPrefab, canvas.transform);
+    /*GameObject titleInstance = Instantiate(titlePrefab, canvas.transform);
+    GameObject contentInstance = Instantiate(contentPrefab, canvas.transform);
 
-        titleText = titleInstance.GetComponent<TextMeshProUGUI>();
-        titleText.color = color;
+    titleText = titleInstance.GetComponent<TextMeshProUGUI>();
+    titleText.color = color;
 
-        contentText = contentInstance.GetComponent<TextMeshProUGUI>();
-        contentText.color = color;
+    contentText = contentInstance.GetComponent<TextMeshProUGUI>();
+    contentText.color = color;
 
-        titleText.text = title;
-        contentText.text = description;
-        
-    }*/
+    titleText.text = title;
+    contentText.text = description;
+
+}*/
+    
 
     public void Initialize(TaskInfo taskInfo, int index)
     {

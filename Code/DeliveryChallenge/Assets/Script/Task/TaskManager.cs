@@ -36,6 +36,10 @@ public class TaskManager : MonoBehaviour
     private List<GameTask> activeTasksList = new List<GameTask>();
     private string clickedTask = "";
 
+    
+
+    
+
     private void Start()
     {
         foodsImagesSprites.Add("Pizza",pizzas);
@@ -46,6 +50,8 @@ public class TaskManager : MonoBehaviour
         foodsImagesSprites.Add("French Fries", fries);
         foodsImagesSprites.Add("Sushi", sushi);
     }
+
+    
 
     public void StartTasks()
     {
@@ -219,6 +225,7 @@ public class TaskManager : MonoBehaviour
         string destination = task.getDestination();
         task.completeTask();
         
+
         Destroy(task.gameObject);
         for(int i = index+1;i<currentTaskNum;i++)
         {
@@ -247,6 +254,8 @@ public class TaskManager : MonoBehaviour
             gameDataCollector.tasksCompleted++;
         }
         
+
+
         return money;
     }
 
@@ -300,6 +309,19 @@ public class TaskManager : MonoBehaviour
         }
         clickedTask = taskTitle;
         arrows[taskTitle].GetComponent<Renderer>().enabled = true;
+    }
+
+
+
+    
+
+    public Arrowdirection GetActiveArrowDirection()
+    {
+        if (clickedTask != "" && arrows.ContainsKey(clickedTask))
+        {
+            return arrows[clickedTask].GetComponent<Arrowdirection>();
+        }
+        return null;
     }
 
 }
