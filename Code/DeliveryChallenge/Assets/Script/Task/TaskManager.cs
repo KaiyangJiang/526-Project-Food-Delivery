@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class TaskManager : MonoBehaviour
 {
@@ -58,6 +59,10 @@ public class TaskManager : MonoBehaviour
 
     public void StartTasks()
     {
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            return;
+        }
         if (inTutorial)
         {
             CreateGameTaskInTuturial(0);

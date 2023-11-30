@@ -24,7 +24,7 @@ public class TreasureBox : MonoBehaviour
             PlayerController playerController = other.GetComponent<PlayerController>();
             if (playerController)
             {
-                manager.updateTutorial(2);
+                manager.updateTutorial(1);
                 playerController.openMagicBox();
                 if(gameDataCollector != null)
                 {

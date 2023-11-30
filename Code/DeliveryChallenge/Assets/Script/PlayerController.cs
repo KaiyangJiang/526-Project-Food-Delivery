@@ -145,7 +145,15 @@ public class PlayerController : MonoBehaviour
                         taskManager.updateTask(currentTaskTitle);
                         manager.unshowHint();
                         //tutorial
-                        manager.updateTutorial(1);
+                        if (manager.tutorialItemInd[0] == 1)
+                        {
+                            manager.updateTutorial(3);
+                        }
+                        else
+                        {
+                            manager.updateTutorial(1);
+                        }
+                        
                         
                     }
                 }
@@ -161,7 +169,15 @@ public class PlayerController : MonoBehaviour
                         manager.unshowHint();
                         canDeliver = false;
                         //tutorial
-                        manager.updateTutorial(4);
+                        if (manager.tutorialItemInd[1] == 1)
+                        {
+                            manager.updateTutorial(5);
+                        }
+                        else
+                        {
+                            manager.updateTutorial(2);
+                        }
+                        
                     }
               
                 }
@@ -391,7 +407,7 @@ public class PlayerController : MonoBehaviour
         */
         if (other.gameObject.tag == "Door")
         {
-            manager.updateTutorial(6);
+            manager.updateTutorial(4);
             TeleportToArrowTarget();
 
 

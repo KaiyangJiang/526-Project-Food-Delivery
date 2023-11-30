@@ -94,17 +94,30 @@ public class GameManager : MonoBehaviour
         {
             finishTutorialPanel.SetActive(false);
         }
-        tutorialItemInd = new List<int>(){0,0,0,0,0,0,0,1,0};
+        
+        if(SceneManager.GetActiveScene().buildIndex == 0)
+        {
+        tutorialItemInd = new List<int>() { 0, 0, 0, 0, 0, 1 };
         tutorialItems = new List<string>() {
-        "Tutorial: Follow arrow and Pick up food",
-        "Tutorial: Now try to run into the box",
+        "Tutorial: Follow red arrow and Pick up food",
+        "Tutorial: Follow red arrow and deliver food",
+        "Tutorial: Follow blue arrow and Pick up food again",
+        "Tutorial: Find teleport door which will teleport you to the delivery place ",
+        "Tutorial: deliver the food",
+        "Congrats you have finished tutorial 1",};
+        }
+
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+        tutorialItemInd = new List<int>() {0,0,0,0,1};
+        tutorialItems = new List<string>() {
+        "Tutorial: Try to run into the box and get weapons",
         "Tutorial: Pick one effect from box",
-        "Tutorial: Follow arrow and deliver food",
-        "Tutorial: Try to defeat the enemy (Hint: Box may have weapon)",
-        "Tutorial: Find teleport door",
-        "Tutorial: Click on map to teleport",
-        "Congrats you have finished tutorial",
-        "Tutorial: You can try to click the task to get direction"};
+        "Tutorial: Enemy will come to you when you get closer, try to kill a enemy ",
+        "Tutorial: Enemy will come to you when you get closer, try to kill a enemy",
+        "Congrats you have finished tutorial"};
+        }
+
         //guidePanel.SetActive(false);
         //inTutorial = true;
         treasureBoxItems = new List<string>() { "+10$\n-15s", "+15s \n-10$", "+Mechine Gun\n-10$", "+Hand Gun\n-10$", "+UZI\n-10$", "+ Shield" };
@@ -141,9 +154,13 @@ public class GameManager : MonoBehaviour
         string combinedString = string.Join(", ", tutorialItemInd);
         print("xxx here");
         print("xxx status text list: " + treasureBoxItems.Count);
-        
-        if(tutorialItemInd.All(n => n == 1)){
-            finishTutorialPanel.SetActive(true);
+        print("xxx tutorial status" + combinedString);
+
+        if (tutorialItemInd.All(n => n >= 1)){
+            if (finishTutorialPanel)
+            {
+                finishTutorialPanel.SetActive(true);
+            }
         }
         if (gameStarted)
         {
@@ -289,6 +306,10 @@ public class GameManager : MonoBehaviour
         print("xxxxx: "+button);
         assignTreasureBox();
         timerOn = true;
+        if (inTutorial)
+        {
+            timerOn = false;
+        }
         inTresureBox = false;
         TreasureBoxPanel.SetActive(false);
     }
@@ -412,7 +433,8 @@ public class GameManager : MonoBehaviour
             shieldIcon.SetActive(true);
             updateStatus("Shield On", 1, Color.green);
         }
-        updateTutorial(8);
+        updateTutorial(2);
+
     }
     public void openMap()
     {
@@ -452,7 +474,7 @@ public class GameManager : MonoBehaviour
 
     public void SkipTutorial()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene((SceneManager.GetActiveScene().buildIndex + 1));
         tutorialPanel.SetActive(false);
         StartGame();
         
@@ -465,13 +487,13 @@ public class GameManager : MonoBehaviour
         skipbutton.SetActive(true);
         StartGame();
         tutorialTextPanel.SetActive(true);
-        tutorialMissionText.text = "Tutorial: Follow arrow and Pick up food";
+        tutorialMissionText.text = tutorialItems[0];
         timerOn = false;
     }
 
     public void updateTutorial(int cur)
     {
-        
+        print("xxx cur"+cur);
         if (tutorialMissionText)
         {
             print("xxx status text: " + tutorialItems[cur]);
@@ -483,6 +505,7 @@ public class GameManager : MonoBehaviour
                 {
                     if (tutorialItems[i] == tutorialMissionText.text)
                     {
+                        print("xxx cur text" + tutorialItems[i]);
                         tutorialItemInd[i] = 1;
                     }
                 }

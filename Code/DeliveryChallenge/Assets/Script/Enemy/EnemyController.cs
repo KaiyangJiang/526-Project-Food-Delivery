@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class EnemyController : MonoBehaviour
 {
@@ -131,7 +132,12 @@ public class EnemyController : MonoBehaviour
         {
             manager.AddMoney(bonus);
             manager.updateStatus("Killing enemy bonus +20$", 1, Color.green);
-            manager.updateTutorial(5);
+            if(SceneManager.GetActiveScene().buildIndex == 1)
+            {
+                manager.updateTutorial(4);
+                manager.finishTutorialPanel.SetActive(true);
+            }
+            
         }
         else
         {
