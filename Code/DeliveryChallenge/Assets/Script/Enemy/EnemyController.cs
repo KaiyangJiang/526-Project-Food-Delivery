@@ -14,12 +14,13 @@ public class EnemyController : MonoBehaviour
     private int locationIndex;
     private Transform Player;
     private GameManager manager;
-    private float bonus = 15;
+    private float bonus = 20;
 
     private bool isDestroyed = false;
 
     public Image imageobj;
     public GameDataCollector gameDataCollector;
+    public GameObject exclamationMark;
 
     private void OnEnable()
     {
@@ -35,6 +36,7 @@ public class EnemyController : MonoBehaviour
         Player = GameObject.Find("Player").transform;
         manager = GameObject.Find("GameManager").GetComponent<GameManager>();
         GameDataCollector dataCollector = FindObjectOfType<GameDataCollector>();
+        exclamationMark.SetActive(false);
     }
 
     // Update is called once per frame
@@ -49,7 +51,7 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
-            agent.speed = 3.5f;
+            agent.speed = 3.0f;
         }
         if(agent.remainingDistance < 0.01f && !agent.pathPending)
         {
@@ -80,6 +82,7 @@ public class EnemyController : MonoBehaviour
         if (other.name == ("Player"))
         {
             agent.destination = Player.position;
+            //exclamationMark.SetActive(true);
           
             print("xxx cap colid");
            
@@ -92,13 +95,15 @@ public class EnemyController : MonoBehaviour
         if (other.name == ("Player"))
         {
             agent.destination = Player.position;
-          
-          
+            exclamationMark.SetActive(true);
+
+
         }
     }
     private void OnTriggerExit(Collider other)
     {
         agent.destination = locations[locationIndex].position;
+        exclamationMark.SetActive(false);
     }
 
     public void Damage(int dmg)
@@ -125,7 +130,7 @@ public class EnemyController : MonoBehaviour
         if (isKilled)
         {
             manager.AddMoney(bonus);
-            manager.updateStatus("Killing enemy bonus +15$", 1, Color.green);
+            manager.updateStatus("Killing enemy bonus +20$", 1, Color.green);
             manager.updateTutorial(5);
         }
         else
@@ -138,8 +143,8 @@ public class EnemyController : MonoBehaviour
             }
             else
             {
-                manager.DecreaseMoney(10);
-                manager.updateStatus("Hit by enemy -10$", 1, Color.red);
+                manager.DecreaseMoney(5);
+                manager.updateStatus("Hit by enemy -5$", 1, Color.red);
             }
             
         }
