@@ -23,6 +23,7 @@ public class GameTask : MonoBehaviour
     private TextMeshProUGUI contentText; // 描述TextMeshPro组件引用
     private GameObject getObject;
     private GameObject deliverObject;
+    private float startTime;
 
     /*public void Initialize(float money, string title, string description, Color color, Vector3 getPosition, Vector3 deliverPosition)
     {
@@ -97,6 +98,7 @@ public class GameTask : MonoBehaviour
         Vector3 offset = new Vector3(0, -distance*this.index, 0);
         titleInstance.transform.localPosition += offset;
         contentInstance.transform.localPosition += offset;
+        startTime = Time.time;
     }
     
     public float getEarnedMoney()
@@ -107,6 +109,11 @@ public class GameTask : MonoBehaviour
     public string getTitle()
     {
         return titleText.text;
+    }
+    
+    public float getStartTime()
+    {
+        return startTime;
     }
     
     public void setContent(string content)

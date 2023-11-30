@@ -155,9 +155,9 @@ public class PlayerController : MonoBehaviour
                     {
                         manager.itemsInHand.Remove(currentTaskTitle);
                         manager.removeFromBag(currentTaskTitle);
-                        float money = taskManager.completeTask(currentTaskTitle);
-                        manager.updateStatus(currentTaskTitle + " Delivered + "+money+"$", 1.5f, Color.yellow);
-                        manager.AddMoney(money);
+                        float[] money = taskManager.completeTask(currentTaskTitle);
+                        manager.updateStatus(currentTaskTitle + " Delivered + "+"$"+money[0] +" + "+ "$"+money[1], 1.5f, Color.yellow);
+                        manager.AddMoney(money[0]+money[1]);
                         manager.unshowHint();
                         canDeliver = false;
                         //tutorial

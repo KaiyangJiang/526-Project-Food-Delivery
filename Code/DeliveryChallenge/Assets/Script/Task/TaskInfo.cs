@@ -82,7 +82,7 @@ public class TaskData
     
     
     
-    public float[] taskMoney = {10, 20, 15, 20, 10, 15, 10, 15, 5, 10};
+    public float[] taskMoney = {20, 20, 20, 20, 20, 20, 20, 20, 20, 20};
     public Color[] taskColors = {
         Color.red,
         Color.blue,

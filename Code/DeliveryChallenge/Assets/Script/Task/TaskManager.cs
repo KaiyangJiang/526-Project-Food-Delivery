@@ -26,6 +26,7 @@ public class TaskManager : MonoBehaviour
     
 
     public GameDataCollector gameDataCollector;
+    private GameManager manager;
 
 
     private int MAX_TASK_NUM = 3;
@@ -35,6 +36,7 @@ public class TaskManager : MonoBehaviour
     private HashSet<string> activeDestinations = new HashSet<string>();
     private List<GameTask> activeTasksList = new List<GameTask>();
     private string clickedTask = "";
+    private float taskTimeLimit = 45.0f;
 
     
 
@@ -49,6 +51,7 @@ public class TaskManager : MonoBehaviour
         foodsImagesSprites.Add("Popcorn", popcorn);
         foodsImagesSprites.Add("French Fries", fries);
         foodsImagesSprites.Add("Sushi", sushi);
+        manager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     
@@ -97,6 +100,7 @@ public class TaskManager : MonoBehaviour
         {
             gameDataCollector.RecordTaskType(taskTitle);
         }
+        StartTask(taskTitle); // start the task countdown
 
         // create an arrow pointing to the Get position
         Vector3 bias = new Vector3(-2.50f, 2.50f, 0);
@@ -152,6 +156,8 @@ public class TaskManager : MonoBehaviour
         {
             gameDataCollector.RecordTaskType(taskTitle);
         }
+        
+        StartTask(taskTitle); // start the task countdown
 
         // create an arrow pointing to the Get position
         Vector3 bias = new Vector3(-2.50f, 2.50f, 0);
@@ -216,7 +222,7 @@ public class TaskManager : MonoBehaviour
         updateTaskPanel(title);
     }
     
-    public float completeTask(string title)
+    public float[] completeTask(string title)
     {
         GameTask task = activeTasks[title];
         task.setContent("Completed!");
@@ -236,6 +242,14 @@ public class TaskManager : MonoBehaviour
         activeTasksList.RemoveAt(index);
         currentTaskNum--;
         
+        float taskDuaration = Time.time - task.getStartTime();
+        Debug.Log("Task Duration: " + taskDuaration);
+        
+        float tip = 0.0f;
+        if(taskDuaration < 10.0f) tip = 10.0f;
+        else if(taskDuaration < 20.0f) tip = 5.0f;
+        else if(taskDuaration < 30.0f) tip = 2.0f;
+        
          if(title == clickedTask)
         {
             clickedTask = "";
@@ -254,9 +268,10 @@ public class TaskManager : MonoBehaviour
             gameDataCollector.tasksCompleted++;
         }
         
+        
 
 
-        return money;
+        return new float[]{money, tip};
     }
 
     private void addToTaskPanel(string title, Color color)
@@ -267,6 +282,9 @@ public class TaskManager : MonoBehaviour
         taskColor.color = color;
         Image taskIcon = taskLIstItemObject.transform.Find("TaskIcon").GetComponent<Image>();
         taskIcon.sprite = foodsImagesSprites[title];
+        Image taskCountdown = taskLIstItemObject.transform.Find("TaskCountdown").GetComponent<Image>();
+        taskCountdown.color = color;
+        taskCountdown.fillAmount = 1.0f;
     }
     
 
@@ -323,5 +341,45 @@ public class TaskManager : MonoBehaviour
         }
         return null;
     }
+
+    private void StartTask(string taskTitle)
+    {
+        StartCoroutine(TaskCountdown(taskTitle, taskTimeLimit));
+    }
+    
+    private IEnumerator TaskCountdown(string taskTitle, float timeLimit)
+    {
+        float remainingTime = timeLimit;
+        
+        
+        while (remainingTime > 0)
+        {
+            if (!activeTasks.ContainsKey(taskTitle))
+            {
+                yield break; 
+            }
+            yield return new WaitForSeconds(1f);
+            remainingTime--;
+            
+            foreach (Transform child in tasksGrid.transform)
+            {
+                if (child.name == taskTitle)
+                {
+                    //TextMeshProUGUI taskCountdown = child.Find("TaskCountdown").GetComponent<TextMeshProUGUI>();
+                    Image taskCountdown = child.Find("TaskCountdown").GetComponent<Image>();
+                    taskCountdown.fillAmount = remainingTime / timeLimit;
+                    break; 
+                }
+            }
+            
+        }
+        if (activeTasks.ContainsKey(taskTitle))
+        {
+            completeTask(taskTitle);
+            manager.AddMoney(-5.0f);
+            manager.updateStatus(taskTitle + " Timed Out", 1.5f, Color.red);
+        }
+    }
+    
 
 }
