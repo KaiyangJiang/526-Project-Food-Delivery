@@ -368,6 +368,14 @@ public class TaskManager : MonoBehaviour
                     //TextMeshProUGUI taskCountdown = child.Find("TaskCountdown").GetComponent<TextMeshProUGUI>();
                     Image taskCountdown = child.Find("TaskCountdown").GetComponent<Image>();
                     taskCountdown.fillAmount = remainingTime / timeLimit;
+                    TextMeshProUGUI taskTips = child.Find("TaskTips").GetComponent<TextMeshProUGUI>();
+                    float tip = 0.0f;
+                    float taskDuaration = taskTimeLimit - remainingTime;
+                    if(taskDuaration < 10.0f) tip = 10.0f;
+                    else if(taskDuaration < 20.0f) tip = 5.0f;
+                    else if(taskDuaration < 30.0f) tip = 2.0f;
+                    taskTips.text = "$" + tip.ToString();
+                    
                     break; 
                 }
             }
